@@ -117,10 +117,10 @@ foreach ($results->getFiles() as $file) {
       <div class="video-box" 
            onclick="window.location.href='play.php?id=<?= urlencode($video['id']) ?>'"
            title="<?= htmlspecialchars($video['name']) ?>">
-        <video preload="metadata" muted playsinline loading="lazy" >
-          <source src="download.php?id=<?= urlencode($video['id']) ?>" type="video/mp4">
-          متصفحك لا يدعم الفيديو.
-        </video>
+        <video preload="none" muted playsinline loading="lazy" data-src="download.php?id=<?= urlencode($video['id']) ?>">
+  متصفحك لا يدعم الفيديو.
+</video>
+
       </div>
     <?php endforeach; ?>
   </div>
@@ -164,5 +164,26 @@ foreach ($results->getFiles() as $file) {
       });
     });
   </script>
+<script>
+  // مراقبة ظهور الفيديوهات لتحميل المصدر فقط عند الحاجة
+  const lazyVideos = document.querySelectorAll("video[data-src]");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const video = entry.target;
+        if (!video.querySelector("source")) {
+          const source = document.createElement("source");
+          source.src = video.dataset.src;
+          source.type = "video/mp4";
+          video.appendChild(source);
+          video.load(); // حمّل الفيديو بعد إضافة المصدر
+        }
+      }
+    });
+  }, { threshold: 0.25 }); // يبدأ التحميل عندما يظهر 25% من الفيديو في الشاشة
+
+  lazyVideos.forEach(video => observer.observe(video));
+</script>
+
 </body>
 </html>
