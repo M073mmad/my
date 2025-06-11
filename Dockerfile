@@ -9,7 +9,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # تعيين مجلد العمل
 WORKDIR /var/www/html
 
-# نسخ كل ملفات المشروع (بما فيها htdocs و secure و composer.json و vendor إن وُجد)
+# نسخ كل ملفات المشروع (بما فيها composer.json و htdocs و secure)
 COPY . .
 
 # تثبيت التبعيات
@@ -18,11 +18,11 @@ RUN composer install --no-dev --optimize-autoloader
 # تفعيل mod_rewrite
 RUN a2enmod rewrite
 
-# إعدادات Apache
+# إعداد Apache للسماح بإعادة الكتابة (mod_rewrite)
 RUN echo '<Directory "/var/www/html">\n\
     AllowOverride All\n\
 </Directory>' > /etc/apache2/conf-available/custom.conf \
     && a2enconf custom
 
-# صلاحيات
+# تعديل الصلاحيات
 RUN chown -R www-data:www-data /var/www/html
