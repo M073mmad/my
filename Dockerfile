@@ -9,15 +9,13 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # تعيين مجلد العمل
 WORKDIR /var/www/html
 
-# نسخ ملفات Composer أولاً (للاستفادة من cache)
-COPY composer.json composer.lock* ./
-
-# تثبيت الاعتماديات قبل نسخ باقي المشروع
-RUN composer install --no-dev --optimize-autoloader
-
-# نسخ ملفات المشروع الآن بعد تثبيت vendor
+# نسخ ملفات المشروع (بما فيها composer.json) أولًا
 COPY htdocs/ /var/www/html/
 COPY secure/ /var/www/html/secure/
+COPY composer.json composer.lock* ./
+
+# تثبيت الاعتماديات بعد نسخ كل الملفات
+RUN composer install --no-dev --optimize-autoloader
 
 # تفعيل mod_rewrite
 RUN a2enmod rewrite
