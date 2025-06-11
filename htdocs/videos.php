@@ -2,7 +2,6 @@
 require_once(__DIR__ . '/vendor/autoload.php');
 session_start();
 
-// التأكد من وجود التوكن
 if (!isset($_SESSION['access_token'])) {
     header('Location: auth.php');
     exit;
@@ -44,7 +43,7 @@ foreach ($results->getFiles() as $file) {
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>📹معرض الفيديوهات</title>
+  <title>📹 معرض الفيديوهات</title>
   <style>
     body {
       background: black;
@@ -63,14 +62,15 @@ foreach ($results->getFiles() as $file) {
 
     .video-box {
       border: 1px solid #ccc;
-      background: #fff;
+      background: #000;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
       cursor: pointer;
       transition: transform 0.2s;
       width: 300px;
       height: 400px;
       overflow: hidden;
+      position: relative;
     }
 
     .video-box:hover {
@@ -109,83 +109,51 @@ foreach ($results->getFiles() as $file) {
       text-decoration: none;
       display: inline-block;
     }
-
-    .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 30px;
-      color: white;
-      background: none;
-      border: none;
-      cursor: pointer;
-      z-index: 10001;
-      user-select: none;
-    }
   </style>
 </head>
 <body>
 
   <h2>📹 معرض الفيديوهات </h2>
   <div class="top-center-container">
-    <a href="gallery.php" class="btn">العودة للمعرض</a>
+    <a href="logout.php" class="btn">🔒 تسجيل الخروج</a>
   </div>
 
   <div class="gallery">
     <?php foreach ($videos as $video): ?>
-      <div class="video-box" onclick="window.location.href='play.php?id=<?= urlencode($video['id']) ?>'" title="<?= htmlspecialchars($video['name']) ?>">
-        <video preload="metadata" muted loop>
-          <source src="proxyv.php?id=<?= urlencode($video['id']) ?>" type="video/mp4">
-          متصفحك لا يدعم الفيديو
+      <div class="video-box" 
+           onmouseenter="startPreview(this)" 
+           onmouseleave="stopPreview(this)" 
+           onclick="window.location.href='play.php?id=<?= urlencode($video['id']) ?>'"
+           title="<?= htmlspecialchars($video['name']) ?>">
+        <video preload="metadata" muted loop playsinline>
+          <source src="download.php?id=<?= urlencode($video['id']) ?>" type="video/mp4">
         </video>
       </div>
     <?php endforeach; ?>
   </div>
 
   <script>
-    const boxes = document.querySelectorAll('.video-box');
+    const hoverTimers = new WeakMap();
 
-    boxes.forEach(box => {
+    function startPreview(box) {
       const video = box.querySelector('video');
-      let timer;
+      const timer = setTimeout(() => {
+        video.play();
+      }, 3000);
+      hoverTimers.set(box, timer);
+    }
 
-      box.addEventListener('mouseenter', () => {
-        timer = setTimeout(() => {
-          video.play();
-        }, 2000);
-      });
-
-      box.addEventListener('mouseleave', () => {
+    function stopPreview(box) {
+      const timer = hoverTimers.get(box);
+      if (timer) {
         clearTimeout(timer);
-        video.pause();
-        video.currentTime = 0;
-      });
-    });
+        hoverTimers.delete(box);
+      }
 
-    function showVideo(src) {
-      const overlay = document.getElementById('videoOverlay');
-      const video = document.getElementById('overlayVideo');
-      video.src = src;
-      video.play();
-      overlay.style.display = 'flex';
-    }
-
-    function closeVideo() {
-      const overlay = document.getElementById('videoOverlay');
-      const video = document.getElementById('overlayVideo');
+      const video = box.querySelector('video');
       video.pause();
-      video.src = '';
-      overlay.style.display = 'none';
+      video.currentTime = 0;
     }
-
-    document.getElementById('videoOverlay').addEventListener('click', function(e) {
-      if (e.target === this) closeVideo();
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === "Escape") closeVideo();
-    });
   </script>
-
 </body>
 </html>
