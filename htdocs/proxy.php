@@ -32,8 +32,8 @@ if ($httpCode !== 200) {
     exit;
 }
 
-// تأكد من نوع الفيديو
-if (!str_starts_with($contentType, 'video/')) {
+// ✅ السماح فقط بأنواع الصور
+if (!str_starts_with($contentType, 'image/')) {
     http_response_code(415);
     echo "Unsupported media type";
     exit;
