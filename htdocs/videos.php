@@ -115,7 +115,7 @@ foreach ($results->getFiles() as $file) {
 
   <h2>📹 معرض الفيديوهات </h2>
   <div class="top-center-container">
-    <a href="logout.php" class="btn">🔒 تسجيل الخروج</a>
+    <a href="gallery.php" class="btn">العودة</a>
   </div>
 
   <div class="gallery">
