@@ -42,7 +42,7 @@ foreach ($results->getFiles() as $file) {
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>📹 معرض الفيديوهات</title>
   <style>
     body {
@@ -52,14 +52,12 @@ foreach ($results->getFiles() as $file) {
       padding: 20px;
       color: white;
     }
-
     .gallery {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
     }
-
     .video-box {
       border: 1px solid #ccc;
       background: #000;
@@ -72,11 +70,9 @@ foreach ($results->getFiles() as $file) {
       overflow: hidden;
       position: relative;
     }
-
     .video-box:hover {
       transform: scale(1.02);
     }
-
     video {
       width: 100%;
       height: 100%;
@@ -84,12 +80,10 @@ foreach ($results->getFiles() as $file) {
       background: black;
       display: block;
     }
-
     h2 {
-        color: white;
-        text-align: center;
+      color: white;
+      text-align: center;
     }
-
     .top-center-container {
       width: 100%;
       display: flex;
@@ -97,7 +91,6 @@ foreach ($results->getFiles() as $file) {
       margin-top: 30px;
       margin-bottom: 20px;
     }
-
     .btn {
       padding: 10px 20px;
       background: #28a745;
@@ -122,14 +115,12 @@ foreach ($results->getFiles() as $file) {
   <div class="gallery">
     <?php foreach ($videos as $video): ?>
       <div class="video-box" 
-           onmouseenter="startPreview(this)" 
-           onmouseleave="stopPreview(this)" 
            onclick="window.location.href='play.php?id=<?= urlencode($video['id']) ?>'"
            title="<?= htmlspecialchars($video['name']) ?>">
-       <video preload="metadata" muted playsinline>
-  <source src="download.php?id=<?= urlencode($video['id']) ?>" type="video/mp4">
-  متصفحك لا يدعم الفيديو.
-</video>
+        <video preload="metadata" muted playsinline loading="lazy" >
+          <source src="download.php?id=<?= urlencode($video['id']) ?>" type="video/mp4">
+          متصفحك لا يدعم الفيديو.
+        </video>
       </div>
     <?php endforeach; ?>
   </div>
@@ -137,25 +128,41 @@ foreach ($results->getFiles() as $file) {
   <script>
     const hoverTimers = new WeakMap();
 
-    function startPreview(box) {
-      const video = box.querySelector('video');
-      const timer = setTimeout(() => {
-        video.play();
-      }, 3000);
-      hoverTimers.set(box, timer);
-    }
-
-    function stopPreview(box) {
-      const timer = hoverTimers.get(box);
-      if (timer) {
-        clearTimeout(timer);
-        hoverTimers.delete(box);
-      }
-
-      const video = box.querySelector('video');
+    // إيقاف كل الفيديوهات في البداية (ساكنة)
+    document.querySelectorAll('.video-box video').forEach(video => {
       video.pause();
       video.currentTime = 0;
-    }
+    });
+
+    document.querySelectorAll('.video-box').forEach(box => {
+      box.addEventListener('mouseenter', () => {
+        const video = box.querySelector('video');
+        // تأكد الفيديو توقف وحضر الـ currentTime
+        video.pause();
+        video.currentTime = 0;
+
+        // بعد 3 ثواني شغل الفيديو
+        const timer = setTimeout(() => {
+          video.play().catch(e => {
+            // إذا حصل خطأ (مثل منع التشغيل التلقائي)
+            console.log("Playback prevented:", e);
+          });
+        }, 3000);
+
+        hoverTimers.set(box, timer);
+      });
+
+      box.addEventListener('mouseleave', () => {
+        const timer = hoverTimers.get(box);
+        if (timer) {
+          clearTimeout(timer);
+          hoverTimers.delete(box);
+        }
+        const video = box.querySelector('video');
+        video.pause();
+        video.currentTime = 0;
+      });
+    });
   </script>
 </body>
 </html>
