@@ -1,3 +1,4 @@
+<?php
 require_once __DIR__ . '/vendor/autoload.php';
 session_start();
 
@@ -39,6 +40,7 @@ try {
     $response = $service->files->get($fileId, ['alt' => 'media']);
     
     header("Content-Type: $mimeType");
+    // منع الكاش في المتصفح
     header("Cache-Control: no-cache, no-store, must-revalidate");
     header("Pragma: no-cache");
     header("Expires: 0");
