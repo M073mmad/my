@@ -3,17 +3,20 @@ FROM php:8.2-cli
 # تثبيت الأدوات المطلوبة
 RUN apt-get update && apt-get install -y unzip git
 
-# تثبيت Composer
+# نسخ Composer من الصورة الرسمية
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# مجلد العمل داخل الحاوية
+# تعيين مجلد العمل
 WORKDIR /app
 
-# نسخ ملفات المشروع
-COPY . .
+# نسخ composer.json و composer.lock فقط أولاً
+COPY composer.json composer.lock* ./
 
-# تثبيت التبعيات (vendor)
+# تثبيت مكتبات PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# ملف التشغيل الأساسي (غير إذا لزم)
+# نسخ باقي ملفات المشروع (بما فيها htdocs)
+COPY . .
+
+# تشغيل التطبيق
 CMD ["php", "htdocs/index.php"]
