@@ -1,18 +1,28 @@
-FROM php:8.2-apache
+# نستخدم صورة PHP الرسمية مع Apache (أو CLI حسب مشروعك)
+FROM php:8.1-apache
 
-# تفعيل mod_rewrite لو كنت تحتاجه
-RUN a2enmod rewrite
+# تثبيت الأدوات المطلوبة (curl, unzip, git, ... إلخ)
+RUN apt-get update && apt-get install -y \
+    curl \
+    unzip \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
-# نسخ ملفات المشروع إلى السيرفر داخل الحاوية
-COPY . /var/www/html/
+# تثبيت Composer بشكل رسمي
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# تغيير مجلد العمل الافتراضي
-WORKDIR /var/www/html/
+# نسخ ملفات المشروع إلى مجلد العمل داخل الحاوية
+WORKDIR /var/www/html
+COPY . /var/www/html
 
-# تثبيت Composer داخل الحاوية (اختياري لأنك سترفع vendor بنفسك)
-# لكن لا ضرر من إضافته
-RUN curl -sS https://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer
+# تشغيل أمر composer install لتثبيت الـ dependencies في مجلد vendor
+RUN composer install --no-dev --optimize-autoloader
 
-# التأكد من تحميل مجلد vendor داخل الصورة (اختياري)
-RUN ls -la vendor
+# تعديل صلاحيات المجلدات (اختياري حسب حاجتك)
+RUN chown -R www-data:www-data /var/www/html/vendor
+
+# تعيين بورت السيرفر (اعتمادًا على Apache في الصورة)
+EXPOSE 80
+
+# الأمر الافتراضي لتشغيل Apache
+CMD ["apache2-foreground"]
