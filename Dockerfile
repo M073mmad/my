@@ -1,25 +1,30 @@
 FROM php:8.2-apache
 
-# تحديث النظام وتثبيت أدوات
+# تثبيت الأدوات المطلوبة
 RUN apt-get update && apt-get install -y unzip git
 
-# نسخ Composer من صورة composer الرسمية
+# نسخ Composer من صورته الرسمية
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# تعيين مجلد العمل داخل الحاوية
+# تعيين مجلد العمل
 WORKDIR /var/www/html
 
-# نسخ ملفات composer (للتبعيات)
+# نسخ التبعيات أولاً
 COPY composer.json composer.lock* ./
+RUN composer install --no-dev --optimize-autoloader || true
 
-# تثبيت التبعيات باستخدام Composer
-RUN composer install --no-dev --optimize-autoloader
-
-# نسخ ملفات المشروع (مجلد htdocs فقط) إلى مجلد الويب
+# نسخ ملفات الموقع
 COPY htdocs/ /var/www/html/
-COPY secure/ /var/www/html/
+COPY secure/ /var/www/html/secure/
 
-# تعديل صلاحيات الملفات ليتمكن Apache من الوصول إليها
+# تفعيل mod_rewrite
+RUN a2enmod rewrite
+
+# إعدادات Apache
+RUN echo '<Directory "/var/www/html">\n\
+    AllowOverride All\n\
+</Directory>' > /etc/apache2/conf-available/custom.conf \
+    && a2enconf custom
+
+# صلاحيات
 RUN chown -R www-data:www-data /var/www/html
-
-# لا حاجة لتعريف CMD لأن Apache يبدأ تلقائياً
