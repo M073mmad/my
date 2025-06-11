@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // تحميل مكتبة Google API من المجلد الأعلى (vendor)
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php'; // ✅ يشير للمسار الصحيح
 
 session_start();
 
