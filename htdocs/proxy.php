@@ -38,8 +38,12 @@ try {
     }
 
     $response = $service->files->get($fileId, ['alt' => 'media']);
+    
     header("Content-Type: $mimeType");
-    header("Cache-Control: public, max-age=86400");
+    // هيدرات تمنع الكاش
+    header("Cache-Control: no-cache, no-store, must-revalidate");
+    header("Pragma: no-cache");
+    header("Expires: 0");
 
     echo $response->getBody()->getContents();
 
