@@ -1,44 +1,61 @@
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
+session_start();
+
 if (!isset($_GET['id'])) {
     http_response_code(400);
     echo "Missing file id";
     exit;
 }
 
+if (!isset($_SESSION['access_token'])) {
+    http_response_code(401);
+    echo "Unauthorized, no access token";
+    exit;
+}
+
 $fileId = $_GET['id'];
-$apiKey = "AIzaSyAYm_eWzEQvCjbgDJ0N4uslSC9zhzvq9DA";
 
-$url = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media&key=$apiKey";
+$client = new Google_Client();
+$client->setAccessToken($_SESSION['access_token']);
 
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-curl_setopt($ch, CURLOPT_HEADER, false);
-$response = curl_exec($ch);
+if ($client->isAccessTokenExpired()) {
+    // يمكن تجديد التوكن هنا إذا أردت
+    http_response_code(401);
+    echo "Access token expired";
+    exit;
+}
 
-if ($response === false) {
+$service = new Google_Service_Drive($client);
+
+try {
+    // نحصل على الملف بالبيانات فقط (metadata)
+    $file = $service->files->get($fileId, ['fields' => 'mimeType, name']);
+
+    // تحقق من نوع الملف
+    $mimeType = $file->getMimeType();
+    if (strpos($mimeType, 'image/') !== 0) {
+        http_response_code(415);
+        echo "Unsupported media type";
+        exit;
+    }
+
+    // الآن نطلب محتوى الملف (البيانات)
+    $response = $service->files->get($fileId, ['alt' => 'media']);
+
+    // نرسل هيدر ونطبع المحتوى
+    header("Content-Type: $mimeType");
+    header("Cache-Control: public, max-age=86400");
+
+    // نقرأ البيانات من استجابة API
+    echo $response->getBody()->getContents();
+
+} catch (Google_Service_Exception $e) {
+    http_response_code($e->getCode());
+    echo "Error fetching file: " . $e->getMessage();
+    exit;
+} catch (Exception $e) {
     http_response_code(500);
-    echo "Failed to fetch file.";
+    echo "Internal error: " . $e->getMessage();
     exit;
 }
-
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-$contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-curl_close($ch);
-
-if ($httpCode !== 200) {
-    http_response_code($httpCode);
-    echo "Error fetching file.";
-    exit;
-}
-
-// ✅ السماح فقط بأنواع الصور
-if (!str_starts_with($contentType, 'image/')) {
-    http_response_code(415);
-    echo "Unsupported media type";
-    exit;
-}
-
-header("Content-Type: $contentType");
-header("Cache-Control: public, max-age=86400");
-echo $response;
