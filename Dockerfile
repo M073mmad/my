@@ -10,9 +10,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # نسخ كل ملفات المشروع (بما فيها composer.json و htdocs و secure)
-COPY . .
-
-# تثبيت التبعيات
+COPY htdocs/ /var/www/html/
+COPY secure/ /var/www/html/secure/
+COPY composer.json composer.lock* ./
 RUN composer install --no-dev --optimize-autoloader
 
 # تفعيل mod_rewrite
