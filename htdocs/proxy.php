@@ -1,4 +1,3 @@
-<?php
 require_once __DIR__ . '/vendor/autoload.php';
 session_start();
 
@@ -30,7 +29,7 @@ $service = new Google_Service_Drive($client);
 try {
     $file = $service->files->get($fileId, ['fields' => 'mimeType, name']);
     $mimeType = $file->getMimeType();
-    
+
     if (strpos($mimeType, 'image/') !== 0) {
         http_response_code(415);
         echo "Unsupported media type";
@@ -40,12 +39,16 @@ try {
     $response = $service->files->get($fileId, ['alt' => 'media']);
     
     header("Content-Type: $mimeType");
-    // هيدرات تمنع الكاش
     header("Cache-Control: no-cache, no-store, must-revalidate");
     header("Pragma: no-cache");
     header("Expires: 0");
 
-    echo $response->getBody()->getContents();
+    $responseBody = $response->getBody();
+
+    while (!$responseBody->eof()) {
+        echo $responseBody->read(8192);
+        flush();
+    }
 
 } catch (Exception $e) {
     http_response_code(500);
