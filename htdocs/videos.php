@@ -124,7 +124,7 @@ foreach ($results->getFiles() as $file) {
       <div class="video-box" 
            onmouseenter="startPreview(this)" 
            onmouseleave="stopPreview(this)" 
-           onclick="window.location.href='proxyv.php?id=<?= urlencode($video['id']) ?>'"
+           onclick="window.location.href='play.php?id=<?= urlencode($video['id']) ?>'"
            title="<?= htmlspecialchars($video['name']) ?>">
        <video preload="metadata" muted playsinline>
   <source src="download.php?id=<?= urlencode($video['id']) ?>" type="video/mp4">
