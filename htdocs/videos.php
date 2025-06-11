@@ -1,37 +1,40 @@
 <?php
-// إعدادات API
-$apiKey = "AIzaSyAYm_eWzEQvCjbgDJ0N4uslSC9zhzvq9DA"; // استبدل بمفتاح API الخاص بك
-$folderId = "13qsLYeofdP2xGrKxFKMOHdpJdtNfd7Ba"; // استبدل بمعرف مجلد الفيديوهات
+require_once(__DIR__ . '/vendor/autoload.php');
+session_start();
 
-// جلب الفيديوهات من Google Drive
-$url = "https://www.googleapis.com/drive/v3/files?q='" . $folderId . "'+in+parents+and+trashed=false&key=" . $apiKey . "&fields=files(id,name,mimeType)";
-
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($ch);
-
-if ($response === false) {
-    die('خطأ في جلب البيانات من Google Drive: ' . curl_error($ch));
+// التأكد من وجود التوكن
+if (!isset($_SESSION['access_token'])) {
+    header('Location: auth.php');
+    exit;
 }
 
-curl_close($ch);
-$data = json_decode($response, true);
+$client = new Google_Client();
+$client->setAccessToken($_SESSION['access_token']);
 
-// تصفية الفيديوهات فقط
+if ($client->isAccessTokenExpired()) {
+    unset($_SESSION['access_token']);
+    header('Location: auth.php');
+    exit;
+}
+
+$service = new Google_Service_Drive($client);
+$folderId = "13qsLYeofdP2xGrKxFKMOHdpJdtNfd7Ba";
+
+$results = $service->files->listFiles([
+    'q' => "'$folderId' in parents and trashed = false",
+    'fields' => 'files(id,name,mimeType)'
+]);
+
 $videos = [];
 $allowedExtensions = ['mp4', 'webm', 'ogg'];
-
-if (isset($data["files"])) {
-    foreach ($data["files"] as $file) {
-        if (strpos($file["mimeType"], "video/") === 0) {
-            $ext = strtolower(pathinfo($file["name"], PATHINFO_EXTENSION));
-            if (in_array($ext, $allowedExtensions)) {
-                $videos[] = [
-                    'id' => $file["id"],
-                    'name' => $file["name"]
-                ];
-            }
+foreach ($results->getFiles() as $file) {
+    if (strpos($file->getMimeType(), 'video/') === 0) {
+        $ext = strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
+        if (in_array($ext, $allowedExtensions)) {
+            $videos[] = [
+                'id' => $file->getId(),
+                'name' => $file->getName()
+            ];
         }
     }
 }
@@ -126,21 +129,18 @@ if (isset($data["files"])) {
   <h2>📹 معرض الفيديوهات </h2>
   <div class="top-center-container">
     <a href="gallery.php" class="btn">العودة للمعرض</a>
-
   </div>
 
   <div class="gallery">
-  <?php foreach ($videos as $video): ?>
-    <div class="video-box" onclick="window.location.href='play.php?id=<?= urlencode($video['id']) ?>'" title="<?= htmlspecialchars($video['name']) ?>">
-      <video preload="metadata" muted loop>
-        <source src="proxyv.php?id=<?= urlencode($video['id']) ?>" type="video/mp4">
-        متصفحك لا يدعم الفيديو
-      </video>
-    </div>
-  <?php endforeach; ?>
-</div>
-
-  
+    <?php foreach ($videos as $video): ?>
+      <div class="video-box" onclick="window.location.href='play.php?id=<?= urlencode($video['id']) ?>'" title="<?= htmlspecialchars($video['name']) ?>">
+        <video preload="metadata" muted loop>
+          <source src="proxyv.php?id=<?= urlencode($video['id']) ?>" type="video/mp4">
+          متصفحك لا يدعم الفيديو
+        </video>
+      </div>
+    <?php endforeach; ?>
+  </div>
 
   <script>
     const boxes = document.querySelectorAll('.video-box');
