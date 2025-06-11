@@ -1,61 +1,55 @@
 <?php
 session_start();
-if (!isset($_GET['id'])) {
-    die('لم يتم تحديد الفيديو.');
+
+if (!isset($_GET['id']) || !isset($_SESSION['access_token'])) {
+    die("Missing video id or not authenticated.");
 }
 
-if (!isset($_SESSION['access_token'])) {
-    header('Location: auth.php');
-    exit;
-}
-
-$fileId = $_GET['id'];
-$videoUrl = "download.php?id=" . urlencode($fileId);
+$videoId = htmlspecialchars($_GET['id']);
 ?>
 
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>تشغيل الفيديو</title>
+  <!-- تحميل CSS الخاص بمشغل Plyr -->
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
   <style>
     body {
-      background: black;
-      margin: 0;
+      background: #000;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
-    video {
-      max-width: 90vw;
-      max-height: 90vh;
-      border-radius: 8px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.7);
-    }
-    .back-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: #28a745;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-      z-index: 1000;
+    .plyr__video-embed {
+      width: 80vw;
+      max-width: 900px;
     }
   </style>
 </head>
 <body>
 
-<button class="back-btn" onclick="window.history.back()">العودة</button>
+  <video
+    id="player"
+    controls
+    crossorigin
+    playsinline
+  >
+    <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4" />
+    متصفحك لا يدعم تشغيل الفيديو.
+  </video>
 
-<video controls autoplay>
-  <source src="<?= htmlspecialchars($videoUrl) ?>" type="video/mp4" />
-  متصفحك لا يدعم تشغيل الفيديو.
-</video>
+  <!-- تحميل سكريبت Plyr -->
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+  <script>
+    const player = new Plyr('#player', {
+      controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+      autoplay: true,
+    });
+  </script>
 
 </body>
 </html>
