@@ -81,6 +81,7 @@ foreach ($results->getFiles() as $file) {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      background: black;
       display: block;
     }
 
@@ -125,9 +126,10 @@ foreach ($results->getFiles() as $file) {
            onmouseleave="stopPreview(this)" 
            onclick="window.location.href='play.php?id=<?= urlencode($video['id']) ?>'"
            title="<?= htmlspecialchars($video['name']) ?>">
-        <video preload="metadata" muted loop playsinline>
-          <source src="download.php?id=<?= urlencode($video['id']) ?>" type="video/mp4">
-        </video>
+       <video preload="metadata" muted playsinline>
+  <source src="download.php?id=<?= urlencode($video['id']) ?>" type="video/mp4">
+  متصفحك لا يدعم الفيديو.
+</video>
       </div>
     <?php endforeach; ?>
   </div>
