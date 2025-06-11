@@ -3,8 +3,9 @@ if (!isset($_GET['id'])) {
     die('لم يتم تحديد الفيديو.');
 }
 
+// ✅ نستخدم رابط تحميل بالفيديو يعمل بـ OAuth (من download.php)
 $fileId = $_GET['id'];
-$videoUrl = "proxyv.php?id=" . urlencode($fileId);
+$videoUrl = "download.php?id=" . urlencode($fileId); // <== هنا التغيير
 ?>
 
 <!DOCTYPE html>
