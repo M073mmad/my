@@ -1,5 +1,4 @@
 <?php
-// gallery.php
 require_once(__DIR__ . '/vendor/autoload.php');
 session_start();
 
@@ -27,7 +26,7 @@ $service = new Google_Service_Drive($client);
 $folderId = "1-0fHnE5RvIb3QgRphne0yYuWHMmTAqgy";
 $results = $service->files->listFiles([
     'q' => "'$folderId' in parents and trashed = false",
-    'fields' => 'files(id,name,mimeType)'
+    'fields' => 'files(id,name,mimeType,thumbnailLink)'
 ]);
 
 $images = [];
@@ -36,7 +35,10 @@ foreach ($results->getFiles() as $file) {
     if (strpos($file->getMimeType(), 'image/') === 0) {
         $ext = strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
         if (in_array($ext, $allowedExtensions)) {
-            $images[] = "proxy.php?id=" . $file->getId();
+            $images[] = [
+                'thumb' => $file->getThumbnailLink(),
+                'id' => $file->getId(),
+            ];
         }
     }
 }
@@ -137,7 +139,8 @@ foreach ($results->getFiles() as $file) {
     <?php
     if (!empty($images)) {
       foreach ($images as $img) {
-        echo '<img src="'.htmlspecialchars($img).'" alt="صورة" onclick="showImage(this.src)">';
+        // هنا نستخدم الصورة المصغرة في src و الصورة الكاملة عند الضغط (proxy.php)
+        echo '<img src="' . htmlspecialchars($img['thumb']) . '" alt="صورة" loading="lazy" onclick="showImage(\'proxy.php?id=' . htmlspecialchars($img['id']) . '\')">';
       }
     } else {
       echo "<p style='color:white'>لا توجد صور متاحة أو أن الصور غير عامة.</p>";
