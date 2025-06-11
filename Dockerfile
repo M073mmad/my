@@ -9,13 +9,11 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # تعيين مجلد العمل
 WORKDIR /var/www/html
 
-# نسخ التبعيات أولاً
-COPY composer.json composer.lock* ./
-RUN composer install --no-dev --optimize-autoloader || true
+# نسخ كل ملفات المشروع (بما فيها htdocs و secure و composer.json و vendor إن وُجد)
+COPY . .
 
-# نسخ ملفات الموقع
-COPY htdocs/ /var/www/html/
-COPY secure/ /var/www/html/secure/
+# تثبيت التبعيات
+RUN composer install --no-dev --optimize-autoloader
 
 # تفعيل mod_rewrite
 RUN a2enmod rewrite
