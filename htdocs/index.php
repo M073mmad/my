@@ -84,7 +84,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
       width: 100%;
     }
 
-    .error {
+    .er {
       color: red;
       margin-bottom: 15px;
     }
@@ -101,7 +101,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 <div class="login-box">
   <h2>تسجيل الدخول</h2>
   <?php if ($error): ?>
-    <div class="error"><?php echo htmlspecialchars($error); ?></div>
+    <div class="er"><?php echo htmlspecialchars($error); ?></div>
   <?php endif; ?>
   <form method="post">
     <input type="text" name="username" placeholder="اسم المستخدم" required>
