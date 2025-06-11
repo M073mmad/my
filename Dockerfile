@@ -17,6 +17,7 @@ RUN composer install --no-dev --optimize-autoloader
 
 # نسخ ملفات المشروع (مجلد htdocs فقط) إلى مجلد الويب
 COPY htdocs/ /var/www/html/
+COPY secure/ /var/www/html/
 
 # تعديل صلاحيات الملفات ليتمكن Apache من الوصول إليها
 RUN chown -R www-data:www-data /var/www/html
