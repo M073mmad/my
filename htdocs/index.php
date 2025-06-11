@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$usersFile = dirname(__DIR__) . '/users.txt';
+$usersFile = dirname(__DIR__) . 'users.txt';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
