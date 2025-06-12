@@ -60,7 +60,7 @@ $videoId = htmlspecialchars($_GET['id']);
     متصفحك لا يدعم تشغيل الفيديو.
   </video>
 
-  <a href="gallery.php" class="back-btn">🔙 العودة للمعرض</a>
+  <a href="videos.php" class="back-btn">🔙 العودة للمعرض</a>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script>
