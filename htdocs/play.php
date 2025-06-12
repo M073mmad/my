@@ -22,9 +22,6 @@ $videoId = htmlspecialchars($_GET['id']);
       font-family: 'Segoe UI', sans-serif;
       width: 100vw;
       height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       overflow: hidden;
     }
 
@@ -32,19 +29,20 @@ $videoId = htmlspecialchars($_GET['id']);
       width: 100vw;
       height: 100vh;
       background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       position: relative;
     }
 
     video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(0deg);
+      transform-origin: center center;
       background: black;
       object-fit: contain;
       transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease;
       width: 100%;
       height: 100%;
-      /* لا تضع هنا fixed width/height، سيتم ضبطها بالجاڤا سكريبت */
     }
 
     h1, .back-btn {
@@ -117,27 +115,28 @@ $videoId = htmlspecialchars($_GET['id']);
       angle = (angle + 90) % 360;
       const video = document.getElementById('player');
 
-      // تدوير الفيديو
-      video.style.transform = `rotate(${angle}deg)`;
+      // تدوير الفيديو مع الحفاظ على تمركزه
+      video.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
 
-      // ضبط العرض والارتفاع حسب الزاوية
+      // ضبط الأبعاد حسب الزاوية
       if (angle === 90 || angle === 270) {
-        // عرض الفيديو يصبح ارتفاع نافذة العرض، والارتفاع يصبح عرض نافذة العرض
         video.style.width = window.innerHeight + 'px';
         video.style.height = window.innerWidth + 'px';
       } else {
-        // إعادة العرض والارتفاع للوضع الطبيعي
         video.style.width = '100%';
         video.style.height = '100%';
       }
     }
 
-    // اختياري: تحديث أبعاد الفيديو إذا غيرت حجم النافذة مع وجود تدوير 90 أو 270
+    // تحديث الأبعاد إذا تغير حجم النافذة
     window.addEventListener('resize', () => {
+      const video = document.getElementById('player');
       if (angle === 90 || angle === 270) {
-        const video = document.getElementById('player');
         video.style.width = window.innerHeight + 'px';
         video.style.height = window.innerWidth + 'px';
+      } else {
+        video.style.width = '100%';
+        video.style.height = '100%';
       }
     });
   </script>
