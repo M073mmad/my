@@ -24,7 +24,6 @@ $videoId = htmlspecialchars($_GET['id']);
       width: 100vw;
       height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
     }
@@ -41,13 +40,12 @@ $videoId = htmlspecialchars($_GET['id']);
       position: absolute;
       top: 50%;
       left: 50%;
-      width: auto;
-      height: auto;
-      max-width: 100vw;
-      max-height: 100vh;
+      width: 100%;
+      height: 100%;
       transform: translate(-50%, -50%) rotate(0deg);
       transition: transform 0.5s ease;
       object-fit: contain;
+      background: black;
     }
 
     h1, .back-btn {
@@ -70,6 +68,10 @@ $videoId = htmlspecialchars($_GET['id']);
       color: white;
       text-decoration: none;
       font-weight: bold;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 0, 0, 0.6);
     }
 
     .rotate-btn {
@@ -117,10 +119,10 @@ $videoId = htmlspecialchars($_GET['id']);
       videoElement.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
     }
 
-    // تضمن أنه حتى عند تغيير اتجاه الجهاز، يبقى الإطار ثابت بالحجم الكامل
     function fixSize() {
-      document.querySelector('.video-container').style.width = window.innerWidth + 'px';
-      document.querySelector('.video-container').style.height = window.innerHeight + 'px';
+      const container = document.querySelector('.video-container');
+      container.style.width = window.innerWidth + 'px';
+      container.style.height = window.innerHeight + 'px';
     }
 
     window.addEventListener('resize', fixSize);
