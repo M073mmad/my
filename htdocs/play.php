@@ -26,12 +26,16 @@ $videoId = htmlspecialchars($_GET['id']);
       font-family: 'Segoe UI', sans-serif;
       min-height: 100vh;
     }
-    .plyr__video-embed,
-    video {
+    .video-container {
+      position: relative;
       width: 90vw;
       max-width: 960px;
+    }
+    video {
+      width: 100%;
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      transition: transform 0.5s ease;
     }
     h1 {
       margin-bottom: 20px;
@@ -49,16 +53,32 @@ $videoId = htmlspecialchars($_GET['id']);
     .back-btn:hover {
       background: darkred;
     }
+    .rotate-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255,255,255,0.8);
+      color: #000;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
 
   <h1>🎬 تشغيل الفيديو</h1>
 
-  <video id="player" controls crossorigin playsinline preload="metadata">
-    <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4" />
-    متصفحك لا يدعم تشغيل الفيديو.
-  </video>
+  <div class="video-container">
+    <button class="rotate-btn" onclick="rotateVideo()">↻ تدوير</button>
+    <video id="player" controls crossorigin playsinline preload="metadata" loop>
+      <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4" />
+      متصفحك لا يدعم تشغيل الفيديو.
+    </video>
+  </div>
 
   <a href="videos.php" class="back-btn">🔙 العودة للمعرض</a>
 
@@ -68,9 +88,16 @@ $videoId = htmlspecialchars($_GET['id']);
       controls: [
         'play', 'progress', 'current-time',
         'mute', 'volume', 'settings', 'fullscreen'
-      ],
-      autoplay: true
+      ]
+      // autoplay محذوفة، يعني false افتراضياً
     });
+
+    let angle = 0;
+    function rotateVideo() {
+      angle = (angle + 90) % 360;
+      const videoElement = document.querySelector('#player');
+      videoElement.style.transform = `rotate(${angle}deg)`;
+    }
   </script>
 
 </body>
