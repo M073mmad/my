@@ -30,12 +30,20 @@ $videoId = htmlspecialchars($_GET['id']);
       position: relative;
       width: 90vw;
       max-width: 960px;
+      aspect-ratio: 16 / 9; /* للحفاظ على نسبة العرض إلى الارتفاع */
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      background: black;
     }
     video {
       width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      height: 100%;
+      object-fit: contain; /* يحافظ على نسبة العرض للارتفاع بدون تشويه */
       transition: transform 0.5s ease;
+      display: block;
+      margin: 0 auto;
+      transform-origin: center center; /* مركز التدوير */
     }
     h1 {
       margin-bottom: 20px;
@@ -65,6 +73,7 @@ $videoId = htmlspecialchars($_GET['id']);
       font-weight: bold;
       cursor: pointer;
       z-index: 10;
+      user-select: none;
     }
   </style>
 </head>
@@ -89,7 +98,6 @@ $videoId = htmlspecialchars($_GET['id']);
         'play', 'progress', 'current-time',
         'mute', 'volume', 'settings', 'fullscreen'
       ]
-      // autoplay محذوفة، يعني false افتراضياً
     });
 
     let angle = 0;
@@ -97,6 +105,14 @@ $videoId = htmlspecialchars($_GET['id']);
       angle = (angle + 90) % 360;
       const videoElement = document.querySelector('#player');
       videoElement.style.transform = `rotate(${angle}deg)`;
+
+      // إذا الزاوية 90 أو 270، نقلب الaspect ratio بالحاوية عشان يناسب الفيديو
+      const container = document.querySelector('.video-container');
+      if(angle === 90 || angle === 270) {
+        container.style.aspectRatio = '9 / 16';
+      } else {
+        container.style.aspectRatio = '16 / 9';
+      }
     }
   </script>
 
