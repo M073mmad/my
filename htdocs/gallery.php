@@ -110,14 +110,14 @@ foreach ($results->getFiles() as $file) {
       z-index: 1000;
     }
     .overlay img {
-      max-height: 90vh;
+      height: 100vh;             /* تغطي الارتفاع بالكامل */
+      width: auto;               /* العرض تلقائي لتناسب الصورة */
       max-width: 100vw;
-      width: auto;
-      height: auto;
-      object-fit: contain;
+      object-fit: contain;       /* لا تقص أو تمدد الصورة */
       border-radius: 10px;
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-    }
+     }
+
      @media (max-width: 768px) {
   .overlay img {
     width: 100vw;
