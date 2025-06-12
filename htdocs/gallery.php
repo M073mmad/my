@@ -109,12 +109,23 @@ foreach ($results->getFiles() as $file) {
       z-index: 1000;
     }
     .overlay img {
-      height: 90vh;
-      width: auto;
+      max-height: 90vh;
       max-width: 100vw;
+      width: auto;
+      height: auto;
+      object-fit: contain;
       border-radius: 10px;
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     }
+     @media (max-width: 768px) {
+  .overlay img {
+    width: 100vw;
+    height: auto;
+    max-height: 90vh;
+  }
+}
+
+      
     .close-btn {
       position: absolute;
       top: 20px; right: 30px;
