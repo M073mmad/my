@@ -39,11 +39,12 @@ $videoId = htmlspecialchars($_GET['id']);
     }
 
     video {
+      background: black;
+      object-fit: contain;
+      transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease;
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      background: black;
-      transition: transform 0.5s ease;
+      /* لا تضع هنا fixed width/height، سيتم ضبطها بالجاڤا سكريبت */
     }
 
     h1, .back-btn {
@@ -115,8 +116,30 @@ $videoId = htmlspecialchars($_GET['id']);
     function rotateVideo() {
       angle = (angle + 90) % 360;
       const video = document.getElementById('player');
+
+      // تدوير الفيديو
       video.style.transform = `rotate(${angle}deg)`;
+
+      // ضبط العرض والارتفاع حسب الزاوية
+      if (angle === 90 || angle === 270) {
+        // عرض الفيديو يصبح ارتفاع نافذة العرض، والارتفاع يصبح عرض نافذة العرض
+        video.style.width = window.innerHeight + 'px';
+        video.style.height = window.innerWidth + 'px';
+      } else {
+        // إعادة العرض والارتفاع للوضع الطبيعي
+        video.style.width = '100%';
+        video.style.height = '100%';
+      }
     }
+
+    // اختياري: تحديث أبعاد الفيديو إذا غيرت حجم النافذة مع وجود تدوير 90 أو 270
+    window.addEventListener('resize', () => {
+      if (angle === 90 || angle === 270) {
+        const video = document.getElementById('player');
+        video.style.width = window.innerHeight + 'px';
+        video.style.height = window.innerWidth + 'px';
+      }
+    });
   </script>
 
 </body>
