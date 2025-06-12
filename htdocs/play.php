@@ -20,44 +20,58 @@ $videoId = htmlspecialchars($_GET['id']);
       background: #000;
       color: #fff;
       font-family: 'Segoe UI', sans-serif;
-      overflow: hidden; /* يمنع الscroll */
-      height: 100%;
-      width: 100%;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
+
     .video-container {
       position: relative;
+      width: 100vw;
+      height: 100vh;
       background: black;
-      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
     }
+
     video {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: contain;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: auto;
+      height: auto;
+      max-width: 100vw;
+      max-height: 100vh;
+      transform: translate(-50%, -50%) rotate(0deg);
       transition: transform 0.5s ease;
-      transform-origin: center center;
+      object-fit: contain;
     }
-    h1 {
-      margin: 10px 0;
-    }
-    .back-btn {
-      margin-top: 10px;
-      text-decoration: none;
-      background: red;
-      color: white;
-      padding: 10px 25px;
+
+    h1, .back-btn {
+      position: absolute;
+      z-index: 5;
+      background: rgba(0,0,0,0.5);
+      padding: 8px 16px;
       border-radius: 8px;
+    }
+
+    h1 {
+      top: 10px;
+      right: 10px;
+      font-size: 18px;
+    }
+
+    .back-btn {
+      bottom: 10px;
+      right: 10px;
+      color: white;
+      text-decoration: none;
       font-weight: bold;
     }
-    .back-btn:hover {
-      background: darkred;
-    }
+
     .rotate-btn {
       position: absolute;
       top: 10px;
@@ -76,17 +90,15 @@ $videoId = htmlspecialchars($_GET['id']);
 </head>
 <body>
 
-  <h1>🎬 تشغيل الفيديو</h1>
-
-  <div class="video-container" id="videoContainer">
+  <div class="video-container">
     <button class="rotate-btn" onclick="rotateVideo()">↻ تدوير</button>
     <video id="player" controls crossorigin playsinline preload="metadata" loop>
       <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4" />
       متصفحك لا يدعم تشغيل الفيديو.
     </video>
+    <h1>🎬 تشغيل الفيديو</h1>
+    <a href="videos.php" class="back-btn">🔙 العودة للمعرض</a>
   </div>
-
-  <a href="videos.php" class="back-btn">🔙 العودة للمعرض</a>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script>
@@ -97,47 +109,23 @@ $videoId = htmlspecialchars($_GET['id']);
       ]
     });
 
-    const container = document.getElementById('videoContainer');
     const videoElement = document.getElementById('player');
     let angle = 0;
 
-    function resizeContainer() {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const maxWidth = vw * 0.95;
-      const maxHeight = vh * 0.85;
-
-      if (angle === 90 || angle === 270) {
-        // فيديو عمودي
-        let height = maxHeight;
-        let width = height * 9 / 16;
-        if (width > maxWidth) {
-          width = maxWidth;
-          height = width * 16 / 9;
-        }
-        container.style.width = width + 'px';
-        container.style.height = height + 'px';
-      } else {
-        // فيديو أفقي
-        let width = maxWidth;
-        let height = width * 9 / 16;
-        if (height > maxHeight) {
-          height = maxHeight;
-          width = height * 16 / 9;
-        }
-        container.style.width = width + 'px';
-        container.style.height = height + 'px';
-      }
-    }
-
     function rotateVideo() {
       angle = (angle + 90) % 360;
-      videoElement.style.transform = `rotate(${angle}deg)`;
-      resizeContainer();
+      videoElement.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
     }
 
-    window.addEventListener('resize', resizeContainer);
-    window.addEventListener('load', resizeContainer);
+    // تضمن أنه حتى عند تغيير اتجاه الجهاز، يبقى الإطار ثابت بالحجم الكامل
+    function fixSize() {
+      document.querySelector('.video-container').style.width = window.innerWidth + 'px';
+      document.querySelector('.video-container').style.height = window.innerHeight + 'px';
+    }
+
+    window.addEventListener('resize', fixSize);
+    window.addEventListener('orientationchange', fixSize);
+    window.addEventListener('load', fixSize);
   </script>
 
 </body>
