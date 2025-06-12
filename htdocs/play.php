@@ -38,20 +38,12 @@ $videoId = htmlspecialchars($_GET['id']);
       position: relative;
     }
 
-    .video-wrapper {
-      transition: transform 0.5s ease;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     video {
       width: 100%;
       height: 100%;
       object-fit: contain;
       background: black;
+      transition: transform 0.5s ease;
     }
 
     h1, .back-btn {
@@ -101,12 +93,10 @@ $videoId = htmlspecialchars($_GET['id']);
   <div class="video-container">
     <button class="rotate-btn" onclick="rotateVideo()">↻ تدوير</button>
 
-    <div class="video-wrapper" id="wrapper">
-      <video id="player" controls crossorigin playsinline preload="metadata" loop>
-        <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4" />
-        متصفحك لا يدعم تشغيل الفيديو.
-      </video>
-    </div>
+    <video id="player" controls crossorigin playsinline preload="metadata" loop>
+      <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4" />
+      متصفحك لا يدعم تشغيل الفيديو.
+    </video>
 
     <h1>🎬 تشغيل الفيديو</h1>
     <a href="videos.php" class="back-btn">🔙 العودة للمعرض</a>
@@ -124,7 +114,8 @@ $videoId = htmlspecialchars($_GET['id']);
     let angle = 0;
     function rotateVideo() {
       angle = (angle + 90) % 360;
-      document.getElementById('wrapper').style.transform = `rotate(${angle}deg)`;
+      const video = document.getElementById('player');
+      video.style.transform = `rotate(${angle}deg)`;
     }
   </script>
 
