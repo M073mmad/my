@@ -30,6 +30,7 @@ $videoId = htmlspecialchars($_GET['id']);
       height: 100vh;
       background: black;
       position: relative;
+      overflow: hidden;
     }
 
     video {
@@ -40,9 +41,9 @@ $videoId = htmlspecialchars($_GET['id']);
       transform-origin: center center;
       background: black;
       object-fit: contain;
-      transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease;
-      width: 100%;
-      height: 100%;
+      transition: transform 0.5s ease;
+      max-width: 100vw;
+      max-height: 100vh;
     }
 
     h1, .back-btn {
@@ -114,30 +115,14 @@ $videoId = htmlspecialchars($_GET['id']);
     function rotateVideo() {
       angle = (angle + 90) % 360;
       const video = document.getElementById('player');
-
-      // تدوير الفيديو مع الحفاظ على تمركزه
       video.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
-
-      // ضبط الأبعاد حسب الزاوية
-      if (angle === 90 || angle === 270) {
-        video.style.width = window.innerHeight + 'px';
-        video.style.height = window.innerWidth + 'px';
-      } else {
-        video.style.width = '100%';
-        video.style.height = '100%';
-      }
     }
 
-    // تحديث الأبعاد إذا تغير حجم النافذة
+    // تحديث تلقائي إذا تغير حجم الشاشة
     window.addEventListener('resize', () => {
       const video = document.getElementById('player');
-      if (angle === 90 || angle === 270) {
-        video.style.width = window.innerHeight + 'px';
-        video.style.height = window.innerWidth + 'px';
-      } else {
-        video.style.width = '100%';
-        video.style.height = '100%';
-      }
+      video.style.maxWidth = '100vw';
+      video.style.maxHeight = '100vh';
     });
   </script>
 
