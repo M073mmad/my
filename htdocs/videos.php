@@ -152,64 +152,55 @@ foreach ($results->getFiles() as $file) {
   </div>
 
   <script>
-    const hoverTimers = new WeakMap();
+  const hoverTimers = new WeakMap();
+  const playTimers = new WeakMap();
 
-    // إيقاف كل الفيديوهات في البداية (ساكنة)
-    document.querySelectorAll('.video-box video').forEach(video => {
+  document.querySelectorAll('.video-box').forEach(box => {
+    const video = box.querySelector('video');
+
+    box.addEventListener('mouseenter', () => {
+      const loadTimer = setTimeout(() => {
+        // تحميل الفيديو بعد 2 ثانية
+        if (!video.querySelector('source')) {
+          const source = document.createElement('source');
+          source.src = video.dataset.src;
+          source.type = "video/mp4";
+          video.appendChild(source);
+          video.load();
+        }
+
+        // تشغيل الفيديو بعد 1 ثانية إضافية (مجموع 3 ثواني)
+        const playTimer = setTimeout(() => {
+          video.play().catch(err => console.log("Can't autoplay:", err));
+        }, 1000); // 3 - 2 = 1 ثانية بعد التحميل
+
+        playTimers.set(box, playTimer);
+      }, 2000); // تحميل بعد 2 ثانية
+
+      hoverTimers.set(box, loadTimer);
+    });
+
+    box.addEventListener('mouseleave', () => {
+      const loadTimer = hoverTimers.get(box);
+      if (loadTimer) clearTimeout(loadTimer);
+      hoverTimers.delete(box);
+
+      const playTimer = playTimers.get(box);
+      if (playTimer) clearTimeout(playTimer);
+      playTimers.delete(box);
+
       video.pause();
       video.currentTime = 0;
     });
 
-    document.querySelectorAll('.video-box').forEach(box => {
-      box.addEventListener('mouseenter', () => {
-        const video = box.querySelector('video');
-        // تأكد الفيديو توقف وحضر الـ currentTime
-        video.pause();
-        video.currentTime = 0;
-
-        // بعد 3 ثواني شغل الفيديو
-        const timer = setTimeout(() => {
-          video.play().catch(e => {
-            // إذا حصل خطأ (مثل منع التشغيل التلقائي)
-            console.log("Playback prevented:", e);
-          });
-        }, 3000);
-
-        hoverTimers.set(box, timer);
-      });
-
-      box.addEventListener('mouseleave', () => {
-        const timer = hoverTimers.get(box);
-        if (timer) {
-          clearTimeout(timer);
-          hoverTimers.delete(box);
-        }
-        const video = box.querySelector('video');
-        video.pause();
-        video.currentTime = 0;
-      });
+    // الضغط على الفيديو ينقلك لصفحة التشغيل الكامل
+    box.addEventListener('click', () => {
+      const videoId = video.dataset.src.split('=')[1];
+      window.location.href = 'play.php?id=' + encodeURIComponent(videoId);
     });
-  </script>
-<script>
-  // مراقبة ظهور الفيديوهات لتحميل المصدر فقط عند الحاجة
-  const lazyVideos = document.querySelectorAll("video[data-src]");
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const video = entry.target;
-        if (!video.querySelector("source")) {
-          const source = document.createElement("source");
-          source.src = video.dataset.src;
-          source.type = "video/mp4";
-          video.appendChild(source);
-          video.load(); // حمّل الفيديو بعد إضافة المصدر
-        }
-      }
-    });
-  }, { threshold: 0.25 }); // يبدأ التحميل عندما يظهر 25% من الفيديو في الشاشة
-
-  lazyVideos.forEach(video => observer.observe(video));
+  });
 </script>
+
 
 </body>
 </html>
