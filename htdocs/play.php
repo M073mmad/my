@@ -35,19 +35,22 @@ $videoId = htmlspecialchars($_GET['id']);
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) rotate(0deg);
+      transform: translate(-50%, -50%);
       width: 100vw;
       height: 100vh;
-      transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease;
-      transform-origin: center center;
       background: black;
+      overflow: hidden;
     }
 
     video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(0deg);
       width: 100%;
       height: 100%;
       object-fit: contain;
-      display: block;
+      transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease;
     }
 
     .rotate-btn {
@@ -95,7 +98,7 @@ $videoId = htmlspecialchars($_GET['id']);
 <body>
 
   <div class="video-container">
-    <div class="video-wrapper" id="wrapper">
+    <div class="video-wrapper">
       <video id="player" controls playsinline preload="metadata" loop>
         <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4">
         متصفحك لا يدعم تشغيل الفيديو.
@@ -110,24 +113,27 @@ $videoId = htmlspecialchars($_GET['id']);
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script>
     const player = new Plyr('#player');
-    const wrapper = document.getElementById('wrapper');
+    const video = document.getElementById('player');
     let angle = 0;
 
-    function rotateVideo() {
-      angle = (angle + 90) % 360;
-      wrapper.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
-
+    function updateVideoSize() {
       if (angle % 180 === 90) {
-        wrapper.style.width = window.innerHeight + 'px';
-        wrapper.style.height = window.innerWidth + 'px';
+        video.style.width = window.innerHeight + 'px';
+        video.style.height = window.innerWidth + 'px';
       } else {
-        wrapper.style.width = '100vw';
-        wrapper.style.height = '100vh';
+        video.style.width = '100%';
+        video.style.height = '100%';
       }
     }
 
-    window.addEventListener('resize', rotateVideo);
-    window.addEventListener('load', rotateVideo);
+    function rotateVideo() {
+      angle = (angle + 90) % 360;
+      video.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+      updateVideoSize();
+    }
+
+    window.addEventListener('resize', updateVideoSize);
+    window.addEventListener('load', updateVideoSize);
   </script>
 
 </body>
