@@ -85,15 +85,16 @@ foreach ($results->getFiles() as $file) {
       justify-content: center;
     }
     .gallery img {
-      width: 300px;
-      height: 400px;
-      object-fit: cover;
+      width: 300px;           /* عرض موحد */
+      height: auto;           /* ارتفاع يتناسب تلقائياً */
+      object-fit: cover;      /* يملأ الإطار مع قص زائد */
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       transition: transform 0.3s;
       cursor: pointer;
       background: #000;
     }
+
     .gallery img:hover {
       transform: scale(1.05);
     }
