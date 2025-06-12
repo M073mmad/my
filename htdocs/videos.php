@@ -54,11 +54,14 @@ foreach ($results->getFiles() as $file) {
       color: white;
     }
     .gallery {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 أعمدة بنفس الحجم */
       gap: 20px;
-      justify-content: center;
+      justify-content: center; /* للحفاظ على تمركز الشبكة لو فيها مساحة إضافية */
+      max-width: 1280px; /* عرض أقصى تقريبي: 4×(300+20) */
+      margin: 0 auto; /* تمركز المعرض في الصفحة */
     }
+
     .video-box {
       border: 1px solid #ccc;
       background: #000;
