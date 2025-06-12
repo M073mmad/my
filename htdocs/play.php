@@ -10,9 +10,9 @@ $videoId = htmlspecialchars($_GET['id']);
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>📽️ تشغيل الفيديو</title>
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
   <style>
     html, body {
       margin: 0;
@@ -25,27 +25,22 @@ $videoId = htmlspecialchars($_GET['id']);
     }
 
     .video-container {
-      position: relative;
       width: 100vw;
       height: 100vh;
-      background: black;
-    }
-
-    .video-wrapper {
-      width: 100%;
-      height: 100%;
       position: relative;
-      overflow: hidden;
+      background: #000;
     }
 
     video {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(0deg);
-      transform-origin: center center;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       object-fit: contain;
-      transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease;
+      background: #000;
+      transition: transform 0.4s ease;
+      transform-origin: center center;
     }
 
     .rotate-btn {
@@ -61,25 +56,27 @@ $videoId = htmlspecialchars($_GET['id']);
       z-index: 10;
     }
 
-    h1, .back-btn {
+    h1 {
       position: absolute;
-      z-index: 5;
+      top: 10px;
+      right: 10px;
+      z-index: 10;
       background: rgba(0,0,0,0.5);
       padding: 8px 16px;
       border-radius: 8px;
-    }
-
-    h1 {
-      top: 10px;
-      right: 10px;
       font-size: 18px;
     }
 
     .back-btn {
+      position: absolute;
       bottom: 10px;
       right: 10px;
+      z-index: 10;
+      background: rgba(0,0,0,0.5);
       color: white;
       text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
       font-weight: bold;
     }
 
@@ -91,12 +88,10 @@ $videoId = htmlspecialchars($_GET['id']);
 <body>
 
   <div class="video-container">
-    <div class="video-wrapper">
-      <video id="player" controls crossorigin playsinline preload="metadata" loop>
-        <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4" />
-        متصفحك لا يدعم تشغيل الفيديو.
-      </video>
-    </div>
+    <video id="player" controls playsinline preload="metadata" loop>
+      <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4">
+      متصفحك لا يدعم تشغيل الفيديو.
+    </video>
 
     <button class="rotate-btn" onclick="rotateVideo()">↻ تدوير</button>
     <h1>🎬 تشغيل الفيديو</h1>
@@ -109,26 +104,32 @@ $videoId = htmlspecialchars($_GET['id']);
     const video = document.getElementById('player');
     let angle = 0;
 
-    function updateVideoSize() {
+    function rotateVideo() {
+      angle = (angle + 90) % 360;
+      video.style.transform = `rotate(${angle}deg)`;
+
       if (angle % 180 === 90) {
-        // الفيديو عمودي، خله يعبي عرض الشاشة كـ ارتفاع
         video.style.width = window.innerHeight + 'px';
         video.style.height = window.innerWidth + 'px';
+        video.style.top = `calc(50% - ${window.innerWidth / 2}px)`;
+        video.style.left = `calc(50% - ${window.innerHeight / 2}px)`;
       } else {
-        // الفيديو أفقي، خله يغطي الشاشة كاملة
         video.style.width = '100vw';
         video.style.height = '100vh';
+        video.style.top = '0';
+        video.style.left = '0';
       }
     }
 
-    function rotateVideo() {
-      angle = (angle + 90) % 360;
-      video.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
-      updateVideoSize();
-    }
+    window.addEventListener('resize', () => {
+      // إعادة ضبط الحجم بعد التدوير أو التغيير
+      rotateVideo();
+    });
 
-    window.addEventListener('resize', updateVideoSize);
-    window.addEventListener('load', updateVideoSize);
+    // ضبط أولي
+    window.addEventListener('load', () => {
+      rotateVideo();
+    });
   </script>
 
 </body>
