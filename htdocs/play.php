@@ -25,10 +25,10 @@ $videoId = htmlspecialchars($_GET['id']);
     }
 
     .video-container {
+      position: relative;
       width: 100vw;
       height: 100vh;
-      position: relative;
-      background: #000;
+      background: black;
     }
 
     .video-wrapper {
@@ -36,21 +36,18 @@ $videoId = htmlspecialchars($_GET['id']);
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 100vw;
-      height: 100vh;
       background: black;
       overflow: hidden;
+      max-width: 100vw;
+      max-height: 100vh;
     }
 
-    video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(0deg);
-      width: 100%;
-      height: 100%;
+    .video-wrapper video {
+      width: 100vw;
+      height: 100vh;
       object-fit: contain;
-      transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease;
+      transform: rotate(0deg);
+      transition: transform 0.4s ease;
     }
 
     .rotate-btn {
@@ -98,7 +95,7 @@ $videoId = htmlspecialchars($_GET['id']);
 <body>
 
   <div class="video-container">
-    <div class="video-wrapper">
+    <div class="video-wrapper" id="wrapper">
       <video id="player" controls playsinline preload="metadata" loop>
         <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4">
         متصفحك لا يدعم تشغيل الفيديو.
@@ -114,26 +111,36 @@ $videoId = htmlspecialchars($_GET['id']);
   <script>
     const player = new Plyr('#player');
     const video = document.getElementById('player');
+    const wrapper = document.getElementById('wrapper');
     let angle = 0;
 
-    function updateVideoSize() {
+    function rotateVideo() {
+      angle = (angle + 90) % 360;
+      video.style.transform = `rotate(${angle}deg)`;
+
+      if (angle % 180 === 90) {
+        // لما يصير الفيديو بوضع أفقي (عرضي)
+        video.style.width = window.innerHeight + 'px';
+        video.style.height = window.innerWidth + 'px';
+      } else {
+        // يرجع للوضع الطبيعي
+        video.style.width = '100vw';
+        video.style.height = '100vh';
+      }
+    }
+
+    function resetSize() {
       if (angle % 180 === 90) {
         video.style.width = window.innerHeight + 'px';
         video.style.height = window.innerWidth + 'px';
       } else {
-        video.style.width = '100%';
-        video.style.height = '100%';
+        video.style.width = '100vw';
+        video.style.height = '100vh';
       }
     }
 
-    function rotateVideo() {
-      angle = (angle + 90) % 360;
-      video.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
-      updateVideoSize();
-    }
-
-    window.addEventListener('resize', updateVideoSize);
-    window.addEventListener('load', updateVideoSize);
+    window.addEventListener('resize', resetSize);
+    window.addEventListener('load', resetSize);
   </script>
 
 </body>
