@@ -32,7 +32,7 @@ foreach ($results->getFiles() as $file) {
         if (in_array($ext, $allowedExtensions)) {
             $videos[] = [
                 'id' => $file->getId(),
-                'name' => $file->getName()
+                'name' => $file->getName(),
                 'thumb' => $file->getThumbnailLink()
             ];
         }
