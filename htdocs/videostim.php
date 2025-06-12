@@ -68,10 +68,12 @@ foreach ($results->getFiles() as $file) {
       box-shadow: 0 2px 10px rgba(0,0,0,0.5);
       cursor: pointer;
       transition: transform 0.2s;
-      width: 300px;
       height: 400px;
       overflow: hidden;
       position: relative;
+      aspect-ratio: 3 / 4;
+      max-width: 300px;
+      width: 100%;
     }
     .video-box:hover {
       transform: scale(1.02);
