@@ -31,16 +31,23 @@ $videoId = htmlspecialchars($_GET['id']);
       background: #000;
     }
 
-    video {
+    .video-wrapper {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(0deg);
       width: 100vw;
       height: 100vh;
-      object-fit: contain;
-      background: #000;
-      transition: transform 0.4s ease;
+      transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease;
       transform-origin: center center;
+      background: black;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .rotate-btn {
@@ -88,10 +95,12 @@ $videoId = htmlspecialchars($_GET['id']);
 <body>
 
   <div class="video-container">
-    <video id="player" controls playsinline preload="metadata" loop>
-      <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4">
-      متصفحك لا يدعم تشغيل الفيديو.
-    </video>
+    <div class="video-wrapper" id="wrapper">
+      <video id="player" controls playsinline preload="metadata" loop>
+        <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4">
+        متصفحك لا يدعم تشغيل الفيديو.
+      </video>
+    </div>
 
     <button class="rotate-btn" onclick="rotateVideo()">↻ تدوير</button>
     <h1>🎬 تشغيل الفيديو</h1>
@@ -101,35 +110,24 @@ $videoId = htmlspecialchars($_GET['id']);
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script>
     const player = new Plyr('#player');
-    const video = document.getElementById('player');
+    const wrapper = document.getElementById('wrapper');
     let angle = 0;
 
     function rotateVideo() {
       angle = (angle + 90) % 360;
-      video.style.transform = `rotate(${angle}deg)`;
+      wrapper.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
 
       if (angle % 180 === 90) {
-        video.style.width = window.innerHeight + 'px';
-        video.style.height = window.innerWidth + 'px';
-        video.style.top = `calc(50% - ${window.innerWidth / 2}px)`;
-        video.style.left = `calc(50% - ${window.innerHeight / 2}px)`;
+        wrapper.style.width = window.innerHeight + 'px';
+        wrapper.style.height = window.innerWidth + 'px';
       } else {
-        video.style.width = '100vw';
-        video.style.height = '100vh';
-        video.style.top = '0';
-        video.style.left = '0';
+        wrapper.style.width = '100vw';
+        wrapper.style.height = '100vh';
       }
     }
 
-    window.addEventListener('resize', () => {
-      // إعادة ضبط الحجم بعد التدوير أو التغيير
-      rotateVideo();
-    });
-
-    // ضبط أولي
-    window.addEventListener('load', () => {
-      rotateVideo();
-    });
+    window.addEventListener('resize', rotateVideo);
+    window.addEventListener('load', rotateVideo);
   </script>
 
 </body>
