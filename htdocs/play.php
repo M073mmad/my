@@ -20,7 +20,6 @@ $videoId = htmlspecialchars($_GET['id']);
       background: #000;
       color: #fff;
       font-family: 'Segoe UI', sans-serif;
-      width: 100vw;
       height: 100vh;
       overflow: hidden;
     }
@@ -28,22 +27,36 @@ $videoId = htmlspecialchars($_GET['id']);
     .video-container {
       width: 100vw;
       height: 100vh;
-      background: black;
       position: relative;
-      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(0deg);
-      transform-origin: center center;
-      background: black;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
+      background: black;
       transition: transform 0.5s ease;
-      max-width: 100vw;
-      max-height: 100vh;
+      transform-origin: center center;
+    }
+
+    .rotate-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      background: rgba(255,255,255,0.8);
+      color: black;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     h1, .back-btn {
@@ -71,21 +84,6 @@ $videoId = htmlspecialchars($_GET['id']);
     .back-btn:hover {
       background: rgba(255, 0, 0, 0.6);
     }
-
-    .rotate-btn {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: rgba(255,255,255,0.8);
-      color: #000;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 10;
-      user-select: none;
-    }
   </style>
 </head>
 <body>
@@ -104,26 +102,14 @@ $videoId = htmlspecialchars($_GET['id']);
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script>
-    const player = new Plyr('#player', {
-      controls: [
-        'play', 'progress', 'current-time',
-        'mute', 'volume', 'settings', 'fullscreen'
-      ]
-    });
+    const player = new Plyr('#player');
 
     let angle = 0;
     function rotateVideo() {
       angle = (angle + 90) % 360;
       const video = document.getElementById('player');
-      video.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+      video.style.transform = `rotate(${angle}deg)`;
     }
-
-    // تحديث تلقائي إذا تغير حجم الشاشة
-    window.addEventListener('resize', () => {
-      const video = document.getElementById('player');
-      video.style.maxWidth = '100vw';
-      video.style.maxHeight = '100vh';
-    });
   </script>
 
 </body>
