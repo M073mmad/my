@@ -20,30 +20,36 @@ $videoId = htmlspecialchars($_GET['id']);
       background: #000;
       color: #fff;
       font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
       width: 100vw;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .video-container {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      background: black;
       overflow: hidden;
     }
 
-    video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
+    .video-container {
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .video-wrapper {
+      transition: transform 0.5s ease;
       width: 100%;
       height: 100%;
-      transform: translate(-50%, -50%) rotate(0deg);
-      transition: transform 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       background: black;
     }
@@ -94,10 +100,14 @@ $videoId = htmlspecialchars($_GET['id']);
 
   <div class="video-container">
     <button class="rotate-btn" onclick="rotateVideo()">↻ تدوير</button>
-    <video id="player" controls crossorigin playsinline preload="metadata" loop>
-      <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4" />
-      متصفحك لا يدعم تشغيل الفيديو.
-    </video>
+
+    <div class="video-wrapper" id="wrapper">
+      <video id="player" controls crossorigin playsinline preload="metadata" loop>
+        <source src="proxyv.php?id=<?= urlencode($videoId) ?>" type="video/mp4" />
+        متصفحك لا يدعم تشغيل الفيديو.
+      </video>
+    </div>
+
     <h1>🎬 تشغيل الفيديو</h1>
     <a href="videos.php" class="back-btn">🔙 العودة للمعرض</a>
   </div>
@@ -111,23 +121,11 @@ $videoId = htmlspecialchars($_GET['id']);
       ]
     });
 
-    const videoElement = document.getElementById('player');
     let angle = 0;
-
     function rotateVideo() {
       angle = (angle + 90) % 360;
-      videoElement.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+      document.getElementById('wrapper').style.transform = `rotate(${angle}deg)`;
     }
-
-    function fixSize() {
-      const container = document.querySelector('.video-container');
-      container.style.width = window.innerWidth + 'px';
-      container.style.height = window.innerHeight + 'px';
-    }
-
-    window.addEventListener('resize', fixSize);
-    window.addEventListener('orientationchange', fixSize);
-    window.addEventListener('load', fixSize);
   </script>
 
 </body>
