@@ -103,6 +103,30 @@ foreach ($results->getFiles() as $file) {
       text-decoration: none;
       display: inline-block;
     }
+      .btn1 {
+      padding: 10px 20px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 20px;
+      text-decoration: none;
+      display: inline-block;
+    }
+      .btn2 {
+      padding: 10px 20px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 20px;
+      text-decoration: none;
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
@@ -110,6 +134,8 @@ foreach ($results->getFiles() as $file) {
   <h2>📹 معرض الفيديوهات </h2>
   <div class="top-center-container">
     <a href="gallery.php" class="btn">العودة</a>
+    <a href="videostrok.php" class="btn1">تروك</a>
+    <a href="videostim.php" class="btn2">تمساح</a>
   </div>
 
   <div class="gallery">
