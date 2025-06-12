@@ -135,7 +135,7 @@ foreach ($results->getFiles() as $file) {
     }
       .btn3 {
       padding: 10px 20px;
-      background: pink;
+      background: #FF158C;
       color: white;
       border: none;
       border-radius: 6px;
