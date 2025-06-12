@@ -156,8 +156,6 @@ foreach ($results->getFiles() as $file) {
     متصفحك لا يدعم الفيديو.
   </video>
 </div>
-
-      </div>
     <?php endforeach; ?>
   </div>
 
