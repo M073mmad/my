@@ -21,7 +21,7 @@ $folderId = "13qsLYeofdP2xGrKxFKMOHdpJdtNfd7Ba";
 
 $results = $service->files->listFiles([
     'q' => "'$folderId' in parents and trashed = false",
-    'fields' => 'files(id,name,mimeType)'
+    'fields' => 'files(id,name,mimeType,thumbnailLink)'
 ]);
 
 $videos = [];
@@ -33,6 +33,7 @@ foreach ($results->getFiles() as $file) {
             $videos[] = [
                 'id' => $file->getId(),
                 'name' => $file->getName()
+                'thumb' => $file->getThumbnailLink()
             ];
         }
     }
@@ -141,11 +142,15 @@ foreach ($results->getFiles() as $file) {
   <div class="gallery">
     <?php foreach ($videos as $video): ?>
       <div class="video-box" 
-           onclick="window.location.href='play.php?id=<?= urlencode($video['id']) ?>'"
-           title="<?= htmlspecialchars($video['name']) ?>">
-        <video preload="none" muted playsinline loading="lazy" data-src="download.php?id=<?= urlencode($video['id']) ?>">
-  متصفحك لا يدعم الفيديو.
-</video>
+     onclick="window.location.href='play.php?id=<?= urlencode($video['id']) ?>'"
+     title="<?= htmlspecialchars($video['name']) ?>">
+  <video preload="none" muted playsinline
+         loading="lazy"
+         data-src="download.php?id=<?= urlencode($video['id']) ?>"
+         poster="<?= htmlspecialchars($video['thumb']) ?>">
+    متصفحك لا يدعم الفيديو.
+  </video>
+</div>
 
       </div>
     <?php endforeach; ?>
