@@ -48,7 +48,7 @@ foreach ($results->getFiles() as $file) {
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <title>luies images</title>
+  <title>Luies images</title>
   <style>
     body {
       background: black;
@@ -158,7 +158,7 @@ foreach ($results->getFiles() as $file) {
 </head>
 <body>
 
-  <h2>luies images</h2>
+  <h2>Luies images</h2>
 
   <div class="top-center-container">
     
