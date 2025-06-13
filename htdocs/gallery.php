@@ -51,11 +51,11 @@ foreach ($results->getFiles() as $file) {
   <title>📷 معرض الصور</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       background: black;
-      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      text-align: center;
+      padding: 20px;
+      color: white;
     }
     h2 {
       color: white;
