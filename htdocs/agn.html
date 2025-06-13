@@ -16,12 +16,6 @@
       margin-bottom: 30px;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 20px;
-    }
-
     .button-tile {
       background: white;
       border-radius: 12px;
@@ -49,13 +43,27 @@
       margin: 10px 0 20px;
       font-weight: bold;
     }
+    .button {
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .button img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
   </style>
 </head>
 <body>
 
 <h1>صفحات الأجانب</h1>
 
-<div class="grid">
+<div class="button">
   <!-- زر 1 -->
   <a href="videosoliver.php" class="button-tile">
     <img src="image.php?id=12Vd1ct-6OqGmFQAAJXCqvb_Qt5Qj92MD" alt="شعار 1">
