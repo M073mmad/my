@@ -161,7 +161,7 @@ foreach ($results->getFiles() as $file) {
   <h2>📷 معرض الصور</h2>
 
   <div class="top-center-container">
-    <a href="videos.php" class="btn">عرض الفيديوهات</a>
+    
   </div>
 
     <a href="dashboard.php" class="back-btn">←العودة</a>
