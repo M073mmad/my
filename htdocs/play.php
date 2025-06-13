@@ -51,22 +51,23 @@ $videoId = htmlspecialchars($_GET['id']);
     }
 
     .rotate-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(255,255,255,0.8);
-      color: black;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 10;
+      position: fixed;
+       top: 20px;
+       right: 20px;
+       z-index: 1000;
+       background: rgba(0,0,0,0.5);
+       color: white;
+       text-decoration: none;
+       padding: 8px 16px;
+       border-radius: 8px;
+       font-weight: bold;
     }
 
     h1 {
-      position: absolute;
+      position: fixed;
       top: 10px;
-      right: 10px;
+      lift: 50%;
+      transform: translateX(-50%);
       z-index: 10;
       background: rgba(0,0,0,0.5);
       padding: 8px 16px;
