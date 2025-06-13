@@ -113,7 +113,7 @@ foreach ($results->getFiles() as $file) {
 </head>
 <body>
 
-  <h2>📹 معرض الفيديوهات </h2>
+  <h2>معرض حمود</h2>
   <div class="top-center-container">
     <a href="videos.php" class="btn">العودة</a>
   </div>
