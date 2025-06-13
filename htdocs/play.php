@@ -53,7 +53,7 @@ $videoId = htmlspecialchars($_GET['id']);
     .rotate-btn {
       position: absolute;
       top: 10px;
-      left: 10px;
+      right: 10px;
       background: rgba(255,255,255,0.8);
       color: black;
       padding: 8px 12px;
@@ -75,19 +75,17 @@ $videoId = htmlspecialchars($_GET['id']);
     }
 
     .back-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      bottom: 10px;
-      right: 10px;
-      z-index: 1000;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
+       position: fixed;
+       top: 20px;
+       left: 20px;
+       z-index: 1000;
+       background: rgba(0,0,0,0.5);
+       color: white;
+       text-decoration: none;
+       padding: 8px 16px;
+       border-radius: 8px;
+       font-weight: bold;
+     }
 
     .back-btn:hover {
       background: rgba(255, 0, 0, 0.6);
