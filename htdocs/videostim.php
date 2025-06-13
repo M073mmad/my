@@ -89,13 +89,7 @@ foreach ($results->getFiles() as $file) {
       color: white;
       text-align: center;
     }
-    .top-center-container {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
-      margin-bottom: 20px;
-    }
+      
     .btn {
       padding: 10px 20px;
       background: #28a745;
@@ -108,14 +102,32 @@ foreach ($results->getFiles() as $file) {
       text-decoration: none;
       display: inline-block;
     }
+
+      .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      bottom: 10px;
+      right: 10px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 0, 0, 0.6);
+    }
   </style>
 </head>
 <body>
 
   <h2>معرض تمساح</h2>
-  <div class="top-center-container">
-    <a href="videos.php" class="btn">العودة</a>
-  </div>
+    
+  <a href="videos.php" class="back-btn">←العودة</a>
 
   <div class="gallery">
     <?php foreach ($videos as $video): ?>
