@@ -59,6 +59,7 @@ foreach ($results->getFiles() as $file) {
     }
     h2 {
       color: white;
+      text-align: center;
     }
     .top-center-container {
       width: 100%;
