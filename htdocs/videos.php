@@ -121,18 +121,7 @@ foreach ($results->getFiles() as $file) {
       text-decoration: none;
       display: inline-block;
     }
-      .btn2 {
-      padding: 10px 20px;
-      background: red;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-bottom: 20px;
-      text-decoration: none;
-      display: inline-block;
-    }
+
       .btn3 {
       padding: 10px 20px;
       background: #FF158C;
@@ -153,7 +142,7 @@ foreach ($results->getFiles() as $file) {
   <div class="top-center-container">
     <a href="gallery.php" class="btn">العودة</a>
     <a href="videostrok.php" class="btn1">تروك</a>
-    <a href="videostim.php" class="btn2">تمساح</a>
+    <a href="videostim.php" class="btn1">تمساح</a>
     <a href="videoshmod.php" class="btn3">حمود</a>
   </div>
 
