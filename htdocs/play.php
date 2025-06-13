@@ -14,14 +14,12 @@ $videoId = htmlspecialchars($_GET['id']);
   <title>📽️ مشغل الفيديو</title>
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #000;
-      color: #fff;
+    body {
+      background: black;
       font-family: 'Segoe UI', sans-serif;
-      height: 100vh;
-      overflow: hidden;
+      margin: 0;
+      padding: 20px;
+      color: white;
     }
 
     .video-container {
