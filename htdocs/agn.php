@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -104,17 +109,17 @@
 <div class="grid">
   
   <a href="videosoliver.php" class="button-tile">
-    <img loading="lazy" src="image.php?id=12Vd1ct-6OqGmFQAAJXCqvb_Qt5Qj92MD" alt="شعار 1">
+    <img loading="lazy" src="2image.php?id=12Vd1ct-6OqGmFQAAJXCqvb_Qt5Qj92MD" alt="شعار 1">
     <p>Oliver gallery</p>
   </a>
 
   <a href="videosxw.php" class="button-tile">
-    <img loading="lazy" src="image.php?id=19QaN8kF4rZD4lJFdDFlOTUNoPdVx0uMb" alt="شعار 2">
+    <img loading="lazy" src="2image.php?id=19QaN8kF4rZD4lJFdDFlOTUNoPdVx0uMb" alt="شعار 2">
     <p>xw.ian gallery</p>
   </a>
 
   <a href="2luies.html" class="button-tile">
-    <img loading="lazy" src="image.php?id=1FjXJKiPg3ilpoyW75qLmQO5eWIPgKJQQ" alt="شعار 2">
+    <img loading="lazy" src="2image.php?id=1FjXJKiPg3ilpoyW75qLmQO5eWIPgKJQQ" alt="شعار 2">
     <p>luies gallerys</p>
   </a>
 
