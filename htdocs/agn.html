@@ -7,13 +7,15 @@
     body {
       font-family: Arial, sans-serif;
       direction: rtl;
-      background: #000000;
+      background: #000;
       padding: 20px;
+      margin: 0;
     }
 
     h1 {
       text-align: center;
       margin-bottom: 30px;
+      color: white;
     }
 
     .grid {
@@ -23,31 +25,56 @@
     }
 
     .button-tile {
-      background: white;
+      position: relative;
       border-radius: 12px;
+      overflow: hidden;
       text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
       transition: transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
       text-decoration: none;
-      color: black;
+      color: white;
+      height: 220px;
+      background: #000;
     }
 
     .button-tile:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
     }
 
     .button-tile img {
-      width: 80px;
-      height: 100px;
-      object-fit: contain;
-      margin-top: 15px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      transition: opacity 0.3s;
     }
 
+    .button-tile::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70%; /* ← حسب مدى امتداد التلاشي */
+  background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.5), transparent);
+  z-index: 2;
+}
+
+
     .button-tile p {
-      margin: 10px 0 20px;
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+      margin: 0;
+      padding: 0 10px;
       font-weight: bold;
+      z-index: 3;
     }
   </style>
 </head>
@@ -58,19 +85,18 @@
 <div class="grid">
   <!-- زر 1 -->
   <a href="videosoliver.php" class="button-tile">
-    <img src="image.php?id=12Vd1ct-6OqGmFQAAJXCqvb_Qt5Qj92MD" alt="شعار 1">
+    <img loading="lazy" src="image.php?id=12Vd1ct-6OqGmFQAAJXCqvb_Qt5Qj92MD" alt="شعار 1">
     <p>Oliver gallery</p>
   </a>
 
   <!-- زر 2 -->
   <a href="videosxw.php" class="button-tile">
-    <img src="image.php?id=19QaN8kF4rZD4lJFdDFlOTUNoPdVx0uMb" alt="شعار 2">
+    <img loading="lazy" src="image.php?id=19QaN8kF4rZD4lJFdDFlOTUNoPdVx0uMb" alt="شعار 2">
     <p>xw.ian gallery</p>
   </a>
 
-  <!-- أضف المزيد حسب الحاجة -->
+  <!-- أضف المزيد -->
 </div>
 
 </body>
 </html>
-
