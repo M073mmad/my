@@ -107,7 +107,7 @@ $videoId = htmlspecialchars($_GET['id']);
     <h1>🎬 مشغل الفيديو</h1>
   </div>
 
-    <button onclick="window.history.back()" class="back-btn">←العودة</a>
+    <a onclick="window.history.back()" class="back-btn">←العودة</a>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script>
