@@ -97,18 +97,6 @@ foreach ($results->getFiles() as $file) {
       margin-top: 30px;
       margin-bottom: 20px;
     }
-    .btn {
-      padding: 10px 20px;
-      background: #28a745;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-bottom: 20px;
-      text-decoration: none;
-      display: inline-block;
-    }
       .btn1 {
       padding: 10px 20px;
       background: red;
@@ -122,17 +110,23 @@ foreach ($results->getFiles() as $file) {
       display: inline-block;
     }
 
-      .btn3 {
-      padding: 10px 20px;
-      background: #FF158C;
+      .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      bottom: 10px;
+      right: 10px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.5);
       color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-bottom: 20px;
       text-decoration: none;
-      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 0, 0, 0.6);
     }
   </style>
 </head>
@@ -140,12 +134,13 @@ foreach ($results->getFiles() as $file) {
 
   <h2>📹 معرض الفيديوهات </h2>
   <div class="top-center-container">
-    <a href="gallery.php" class="btn">العودة</a>
     <a href="videostrok.php" class="btn1">تروك</a>
     <a href="videostim.php" class="btn1">تمساح</a>
-    <a href="videoshmod.php" class="btn3">حمود</a>
+    <a href="videoshmod.php" class="btn1">حمود</a>
   </div>
 
+<a href="dashboard.php" class="back-btn">←العودة</a>
+    
   <div class="gallery">
     <?php foreach ($videos as $video): ?>
       <div class="video-box" 
