@@ -11,7 +11,7 @@ $videoId = htmlspecialchars($_GET['id']);
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>📽️ تشغيل الفيديو</title>
+  <title>📽️ مشغل الفيديو</title>
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
   <style>
     html, body {
@@ -75,10 +75,12 @@ $videoId = htmlspecialchars($_GET['id']);
     }
 
     .back-btn {
-      position: absolute;
+      position: fixed;
+      top: 20px;
+      left: 20px;
       bottom: 10px;
       right: 10px;
-      z-index: 10;
+      z-index: 1000;
       background: rgba(0,0,0,0.5);
       color: white;
       text-decoration: none;
@@ -103,9 +105,10 @@ $videoId = htmlspecialchars($_GET['id']);
     </div>
 
     <button class="rotate-btn" onclick="rotateVideo()">↻ تدوير</button>
-    <h1>🎬 تشغيل الفيديو</h1>
-    <a href="videos.php" class="back-btn">🔙 العودة للمعرض</a>
+    <h1>🎬 مشغل الفيديو</h1>
   </div>
+
+    <button onclick="window.history.back()" class="back-btn">←العودة</a>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script>
