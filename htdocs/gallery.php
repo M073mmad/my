@@ -138,10 +138,12 @@ foreach ($results->getFiles() as $file) {
       z-index: 1001;
     }
       .back-btn {
-      position: absolute;
+      position: fixed;
+      top: 20px;
+      left: 20px;
       bottom: 10px;
       right: 10px;
-      z-index: 10;
+      z-index: 1000;
       background: rgba(0,0,0,0.5);
       color: white;
       text-decoration: none;
@@ -161,8 +163,9 @@ foreach ($results->getFiles() as $file) {
 
   <div class="top-center-container">
     <a href="videos.php" class="btn">عرض الفيديوهات</a>
-    <a href="dashboard.php" class="back-btn">العودة 🔙</a>
   </div>
+
+    <a href="dashboard.php" class="back-btn">←العودة</a>
 
   <div class="gallery">
     <?php
