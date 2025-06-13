@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>صفحة أزرار</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background: #000000;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .button-tile {
+      background: white;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: black;
+    }
+
+    .button-tile:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .button-tile img {
+      width: 80px;
+      height: 100px;
+      object-fit: contain;
+      margin-top: 15px;
+    }
+
+    .button-tile p {
+      margin: 10px 0 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>قائمة الصفحات</h1>
+
+<div class="grid">
+  <!-- زر 1 -->
+  <a href="page1.html" class="button-tile">
+    <img src="https://drive.google.com/uc?id=YOUR_IMAGE_ID_1" alt="شعار 1">
+    <p>الصفحة الأولى</p>
+  </a>
+
+  <!-- زر 2 -->
+  <a href="page2.html" class="button-tile">
+    <img src="https://drive.google.com/uc?id=YOUR_IMAGE_ID_2" alt="شعار 2">
+    <p>الصفحة الثانية</p>
+  </a>
+
+  <!-- زر 3 -->
+  <a href="https://example.com" class="button-tile">
+    <img src="https://drive.google.com/uc?id=YOUR_IMAGE_ID_3" alt="شعار 3">
+    <p>رابط خارجي</p>
+  </a>
+
+  <!-- أضف المزيد حسب الحاجة -->
+</div>
+
+</body>
+</html>
+
