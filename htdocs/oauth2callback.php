@@ -30,6 +30,6 @@ if (isset($_GET['code'])) {
     $_SESSION['access_token'] = $token;
 
     // إعادة التوجيه إلى صفحة المعرض بعد تسجيل الدخول
-    header('Location: gallery.php');
+    header('Location: dashboard.php');
     exit;
 }
