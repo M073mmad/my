@@ -69,6 +69,7 @@ if (!isset($_SESSION['access_token'])) {
   <a href="imgagn.php" class="btn">صور الأجانب</a>
   <a href="videosagn.php" class="btn">فيديوهات الأجانب</a>
   <a href="agn.html" class="btn">صفحات الأجانب</a>
+  <a href="dashboard.php" class="btn" style="color: #33E010;">العودة</a>
 </div>
 
 </body>
