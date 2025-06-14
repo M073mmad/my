@@ -45,26 +45,27 @@ $videoId = htmlspecialchars($_GET['id']);
       height: 100vh;
       object-fit: contain;
       transform: rotate(0deg);
+      transform-origin: center center;
       transition: transform 0.4s ease;
     }
 
     .rotate-btn {
       position: fixed;
-       top: 20px;
-       right: 20px;
-       z-index: 1000;
-       background: rgba(0,0,0,0.5);
-       color: white;
-       text-decoration: none;
-       padding: 8px 16px;
-       border-radius: 8px;
-       font-weight: bold;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: bold;
     }
 
     h1 {
       position: fixed;
       top: 10px;
-      lift: 50%;
+      left: 50%;
       transform: translateX(-50%);
       z-index: 10;
       background: rgba(0,0,0,0.5);
@@ -74,17 +75,17 @@ $videoId = htmlspecialchars($_GET['id']);
     }
 
     .back-btn {
-       position: fixed;
-       top: 20px;
-       left: 20px;
-       z-index: 1000;
-       background: rgba(0,0,0,0.5);
-       color: white;
-       text-decoration: none;
-       padding: 8px 16px;
-       border-radius: 8px;
-       font-weight: bold;
-     }
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
 
     .back-btn:hover {
       background: rgba(255, 0, 0, 0.6);
@@ -105,7 +106,7 @@ $videoId = htmlspecialchars($_GET['id']);
     <h1>🎬 مشغل الفيديو</h1>
   </div>
 
-    <a onclick="window.history.back()" class="back-btn">←العودة</a>
+  <a onclick="window.history.back()" class="back-btn">← العودة</a>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script>
@@ -114,33 +115,38 @@ $videoId = htmlspecialchars($_GET['id']);
     const wrapper = document.getElementById('wrapper');
     let angle = 0;
 
+    function updateSize() {
+      if (angle % 180 === 90) {
+        video.style.width = window.innerHeight + 'px';
+        video.style.height = window.innerWidth + 'px';
+      } else {
+        video.style.width = '100vw';
+        video.style.height = '100vh';
+      }
+    }
+
     function rotateVideo() {
       angle = (angle + 90) % 360;
-      video.style.transform = `rotate(${angle}deg)`;
 
-      if (angle % 180 === 90) {
-        // لما يصير الفيديو بوضع أفقي (عرضي)
-        video.style.width = window.innerHeight + 'px';
-        video.style.height = window.innerWidth + 'px';
-      } else {
-        // يرجع للوضع الطبيعي
-        video.style.width = '100vw';
-        video.style.height = '100vh';
+      let transform = `rotate(${angle}deg)`;
+
+      // إضافة تعويض لموضع الفيديو بعد التدوير
+      if (angle === 90) {
+        transform += ' translate(0, -100%)';
+      } else if (angle === 180) {
+        transform += ' translate(-100%, -100%)';
+      } else if (angle === 270) {
+        transform += ' translate(-100%, 0)';
       }
+
+      video.style.transform = transform;
+
+      updateSize();
     }
 
-    function resetSize() {
-      if (angle % 180 === 90) {
-        video.style.width = window.innerHeight + 'px';
-        video.style.height = window.innerWidth + 'px';
-      } else {
-        video.style.width = '100vw';
-        video.style.height = '100vh';
-      }
-    }
-
-    window.addEventListener('resize', resetSize);
-    window.addEventListener('load', resetSize);
+    window.addEventListener('resize', updateSize);
+    window.addEventListener('load', updateSize);
+    document.addEventListener('fullscreenchange', updateSize);
   </script>
 
 </body>
