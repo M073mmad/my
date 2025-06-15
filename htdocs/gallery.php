@@ -164,7 +164,7 @@ foreach ($results->getFiles() as $file) {
     
   </div>
 
-    <a href="dashboard.php" class="back-btn">←العودة</a>
+    <a href="2arb.php" class="back-btn">←العودة</a>
 
   <div class="gallery">
     <?php
