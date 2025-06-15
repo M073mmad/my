@@ -66,8 +66,8 @@ if (!isset($_SESSION['access_token'])) {
 
 <div class="dashboard">
   <h1>شفايف و فخوذ</h1>
-  <a href="shfgallery.php" class="btn">الصور</a>
-  <a href="shfvideos.php" class="btn">الفيديوهات</a>
+  <a href="galleryshf.php" class="btn">الصور</a>
+  <a href="videosshf.php" class="btn">الفيديوهات</a>
   <a href="shf.html" class="btn">الصفحات</a>
   <a href="dashboard.php" class="btn" style="background-color: #33E010;">العودة</a>
 </div>
