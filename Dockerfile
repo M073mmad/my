@@ -23,6 +23,7 @@ RUN a2enmod rewrite
 # إعداد Apache للسماح بإعادة الكتابة (mod_rewrite)
 RUN echo '<Directory "/var/www/html">\n\
     AllowOverride All\n\
+    Require all granted\n\
 </Directory>' > /etc/apache2/conf-available/custom.conf \
     && a2enconf custom
 
