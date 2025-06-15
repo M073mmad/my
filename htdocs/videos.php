@@ -131,13 +131,8 @@ foreach ($results->getFiles() as $file) {
 <body>
 
   <h2>📹 معرض الفيديوهات </h2>
-  <div class="top-center-container">
-    <a href="videostrok.php" class="btn1">تروك</a>
-    <a href="videostim.php" class="btn1">تمساح</a>
-    <a href="videoshmod.php" class="btn1">حمود</a>
-  </div>
 
-<a href="dashboard.php" class="back-btn">←العودة</a>
+<a href="2arb.php" class="back-btn">←العودة</a>
     
   <div class="gallery">
     <?php foreach ($videos as $video): ?>
