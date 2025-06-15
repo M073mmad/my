@@ -15,7 +15,7 @@ if (!isset($_SESSION['access_token'])) {
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>لوحة التحكم</title>
+  <title>الأجانب</title>
   <style>
     body {
       background: #f4f4f4;
