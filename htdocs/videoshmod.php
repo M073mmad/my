@@ -126,7 +126,7 @@ foreach ($results->getFiles() as $file) {
 
   <h2>معرض حمود</h2>
 
-    <a href="videos.php" class="back-btn">←العودة</a>
+    <a href="arb.html" class="back-btn">←العودة</a>
 
   <div class="gallery">
     <?php foreach ($videos as $video): ?>
