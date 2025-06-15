@@ -69,6 +69,9 @@ if (!isset($_SESSION['access_token'])) {
   <a href="2agn.php" class="btn">الأجانب</a>
   <a href="2arb.php" class="btn">المعرض العام</a>
   <a href="logout.php" class="btn" style="background: #dc3545;">تسجيل الخروج</a>
+
+<a href="2shf.php" class="btn">معرض الشفايف</a>
+  <a href="logout.php" class="btn" style="background: #dc3545;">تسجيل الخروج</a>
 </div>
 
 </body>
