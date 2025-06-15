@@ -20,7 +20,7 @@ RUN composer install --no-dev --optimize-autoloader
 # تفعيل mod_rewrite
 RUN a2enmod rewrite
 
-# إعداد Apache للسماح بإعادة الكتابة (mod_rewrite)
+# إعداد Apache للسماح بالوصول لجميع الملفات
 RUN echo '<Directory "/var/www/html">\n\
     AllowOverride All\n\
     Require all granted\n\
