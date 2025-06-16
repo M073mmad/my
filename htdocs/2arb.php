@@ -68,7 +68,7 @@ if (!isset($_SESSION['access_token'])) {
   <h1>عام</h1>
   <a href="gallery.php" class="btn">الصور</a>
   <a href="videos.php" class="btn">الفيديوهات</a>
-  <a href="arb.html" class="btn">الصفحات العامة</a>
+  <a href="arb.php" class="btn">الصفحات العامة</a>
   <a href="dashboard.php" class="btn" style="background-color: #33E010;">العودة</a>
 </div>
 
