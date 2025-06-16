@@ -486,7 +486,6 @@ elseif ($page === 'videosatb') {
 
   <?php
 require_once(__DIR__ . '/vendor/autoload.php');
-session_start();
 
 if (!isset($_SESSION['access_token'])) {
     header('Location: auth.php');
