@@ -1,16 +1,16 @@
 <?php
+session_start();
+
 $page = $_GET['page'] ?? 'arb';
 
 if ($page === 'arb') {
-?>
-  <?php
-session_start();
+    if (!isset($_SESSION['access_token'])) {
+        header('Location: auth.php');
+        exit;
+    }
 
-if (!isset($_SESSION['access_token'])) {
-    header('Location: auth.php'); // أو أينما تسجّل الدخول
-    exit;
-}
-?>
+    // هنا تكتب محتوى صفحة arb بالـHTML
+    ?>
 
 <!DOCTYPE html>
 <html lang="ar">
