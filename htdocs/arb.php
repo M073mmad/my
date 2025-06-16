@@ -471,8 +471,9 @@ foreach ($results->getFiles() as $file) {
 </html>
 
 <?php
-} elseif ($page === 'videosatb') {
+elseif ($page === 'videosatb') {
 ?>
+
 
   <?php
 require_once(__DIR__ . '/vendor/autoload.php');
