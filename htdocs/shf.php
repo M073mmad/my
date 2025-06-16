@@ -190,14 +190,14 @@ if ($page === 'shf') {
     <p>❤️معارض طلال❤️</p>
   </a>
 
-  <a href="2ash.html" class="button-tile">
+  <a href="ash.php" class="button-tile">
     <img loading="lazy" src="proxyic.php?id=1P2dDGKb6Xr_Q6StpN4CBT3TBbDzowbXZ" alt="شعار 2">
-    <p>معرض الأشقر</p>
+    <p>معارض الأشقر</p>
   </a>
 
-  <a href="2azm.html" class="button-tile">
+  <a href="azm.php" class="button-tile">
     <img loading="lazy" src="proxyic.php?id=1PepHQPnPLSz9z1U93hOCke3Jli0aKmRb" alt="شعار 2">
-    <p>معرض عزمي</p>
+    <p>معارض عزمي</p>
   </a>
 
 </div>
