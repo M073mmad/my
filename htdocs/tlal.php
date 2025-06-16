@@ -112,7 +112,7 @@ if ($page === 'tlal') {
 
 <h1>❤️معارض طلال❤️</h1>
 
-  <a href="shf.html" class="back-btn">←العودة</a>
+  <a href="shf.php?page=pagesshf" class="back-btn">←العودة</a>
 
 <div class="grid">
 
