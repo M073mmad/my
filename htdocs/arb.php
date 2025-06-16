@@ -3,6 +3,15 @@ $page = $_GET['page'] ?? 'arb';
 
 if ($page === 'arb') {
 ?>
+  <?php
+session_start();
+
+if (!isset($_SESSION['access_token'])) {
+    header('Location: auth.php'); // أو أينما تسجّل الدخول
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
