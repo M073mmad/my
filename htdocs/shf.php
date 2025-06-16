@@ -625,3 +625,4 @@ foreach ($results->getFiles() as $file) {
 
 </body>
 </html>
+<?php } ?>
