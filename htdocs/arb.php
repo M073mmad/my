@@ -471,6 +471,7 @@ foreach ($results->getFiles() as $file) {
 </html>
 
 <?php
+}
 elseif ($page === 'videosatb') {
 ?>
 
@@ -670,3 +671,4 @@ foreach ($results->getFiles() as $file) {
 </script>
 </body>
 </html>
+  }
