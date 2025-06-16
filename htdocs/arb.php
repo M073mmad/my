@@ -271,7 +271,6 @@ if ($page === 'arb') {
 
   <?php
 require_once(__DIR__ . '/vendor/autoload.php');
-session_start();
 
 $client = new Google_Client();
 $client->setClientId('733626945827-b6ae5591pdi6itku1u0mhm6a926hsni0.apps.googleusercontent.com');
