@@ -66,7 +66,7 @@ if (!isset($_SESSION['access_token'])) {
 
 <div class="dashboard">
   <h1>مرحباً، <?php echo htmlspecialchars($_SESSION['user']); ?>!</h1>
-  <a href="2agn.php" class="btn">الأجانب</a>
+  <a href="agn.php" class="btn">الأجانب</a>
   <a href="arb.php" class="btn">المعرض العام</a>
   <a href="shf.php" class="btn">معرض الشفايف</a>
 
