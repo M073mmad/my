@@ -124,8 +124,8 @@ if ($page === 'arb') {
   </a>
 
   <a href="?page=2atb" class="button-tile">
-    <img loading="lazy" src="proxyic.php?id=1ERpxnj8ziJYY9KePgXJHzgjz5x636u7P" alt="شعار 2">
-    <p>معرض ابوعتب</p>
+    <img loading="lazy" src="proxyic.php?id=1tbI9m2vJIItN9HwEqwynRYJKN88S6GOi" alt="شعار 2">
+    <p>معارض ابوعتب</p>
   </a>
 
 </div>
