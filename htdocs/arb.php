@@ -671,4 +671,4 @@ foreach ($results->getFiles() as $file) {
 </script>
 </body>
 </html>
-  }
+ <?php } ?> 
