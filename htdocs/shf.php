@@ -200,6 +200,11 @@ if ($page === 'shf') {
     <p>معارض عزمي</p>
   </a>
 
+    <a href="dgmh.php" class="button-tile">
+    <img loading="lazy" src="proxyic.php?id=1ulO3SnbNopsKuVSKPjdSy36vPgZ15QDK" alt="شعار 1">
+    <p>❤️معارض ابودقمة❤️</p>
+  </a>
+    
 </div>
 
 </body>
