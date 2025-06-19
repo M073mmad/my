@@ -186,7 +186,7 @@ if ($page === 'girls') {
 <div class="grid">
   
   <a href="emgot.php" class="button-tile">
-    <img loading="lazy" src="proxyic.php?id=1LZ0WeEy_u2OPz3t6sHFcq3wlGiIzsyFP" alt="شعار 1">
+    <img loading="lazy" src="proxyic.php?id=1N-STbVkTSwYx_st1G70nf1sKqmEK2DoQ" alt="شعار 1">
     <p>معارض إميليا كلارك</p>
   </a>
     
