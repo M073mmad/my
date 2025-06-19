@@ -69,7 +69,7 @@ if (!isset($_SESSION['access_token'])) {
   <a href="agn.php" class="btn">الأجانب</a>
   <a href="arb.php" class="btn">المعرض العام</a>
   <a href="shf.php" class="btn">معرض الشفايف</a>
-  <a href="girls.php" class="btn">معرض الشفايف</a>
+  <a href="girls.php" class="btn">معرض البنات</a>
   <a href="logout.php" class="btn" style="background: #dc3545;">تسجيل الخروج</a>
 </div>
 
