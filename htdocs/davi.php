@@ -260,7 +260,7 @@ foreach ($results->getFiles() as $file) {
 
   <h2>Davi videos</h2>
 
-  <a href="agn.php?page=pagesagn" class="back-btn">←العودة</a>
+  <a href="?page=davi" class="back-btn">←العودة</a>
 
   <div class="gallery">
     <?php foreach ($videos as $video): ?>
@@ -498,7 +498,7 @@ foreach ($results->getFiles() as $file) {
     
   </div>
 
-    <a href="agn.php?page=pagesagn" class="back-btn">←العودة</a>
+    <a href="?page=davi" class="back-btn">←العودة</a>
 
   <div class="gallery">
     <?php
