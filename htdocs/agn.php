@@ -647,6 +647,11 @@ foreach ($results->getFiles() as $file) {
     <p>Davi gallerys</p>
   </a>
 
+    <a href="eesa.php" class="button-tile">
+    <img loading="lazy" src="proxyic.php?id=10lbCDY3IN3ufdp5Q7H6ZKNtawcytpVA6" alt="شعار 2">
+    <p>eesa gallerys</p>
+  </a>
+
 
   <!-- أضف المزيد -->
 </div>
