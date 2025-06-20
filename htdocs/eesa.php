@@ -330,7 +330,7 @@ foreach ($results->getFiles() as $file) {
 </html>
 
 <?php
-} elseif ($page === 'imgdeesa') {
+} elseif ($page === 'imgeesa') {
 ?>
 
 <?php
