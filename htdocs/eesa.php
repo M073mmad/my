@@ -133,7 +133,7 @@ if ($page === 'eesa') {
 
 <?php
 } elseif ($page === 'videoseesa') {
-
+?>
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
