@@ -132,7 +132,7 @@ if ($page === 'rus') {
 </html>
 
 <?php
-} elseif ($page === 'videosagn') {
+} elseif ($page === 'videosrus') {
 ?>
 
 <?php
