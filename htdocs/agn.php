@@ -652,6 +652,11 @@ foreach ($results->getFiles() as $file) {
     <p>eesa gallerys</p>
   </a>
 
+    <a href="rus.php" class="button-tile">
+    <img loading="lazy" src="proxyic.php?id=16p6lMLXW0SKb3Qzx8H-0XAQju-q9y16t" alt="شعار 2">
+    <p>Rus gallerys</p>
+  </a>
+
 
   <!-- أضف المزيد -->
 </div>
