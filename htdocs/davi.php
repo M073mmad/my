@@ -132,7 +132,8 @@ if ($page === 'davi') {
 </html>
 
 <?php
-} elseif ($page === 'videosdavi') {
+} elseif ($page === 'videosdavi') { 
+?>
 
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
