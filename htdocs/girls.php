@@ -199,6 +199,11 @@ if ($page === 'girls') {
     <img loading="lazy" src="proxyic.php?id=1OqIIW9WXCC3H8hRWmn9iIdBauWU5zNcp" alt="شعار 1">
     <p>معارض بلوندينكا </p>
   </a>
+
+    <a href="emma.php" class="button-tile">
+    <img loading="lazy" src="proxyic.php?id=1bEwEcOKaJCfxVC3RRpFwPlFSp1fmupXT" alt="شعار 1">
+    <p>معارض إيما ستون </p>
+  </a>
     
 </div>
 
