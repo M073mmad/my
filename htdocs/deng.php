@@ -110,7 +110,7 @@ if ($page === '1') {
 
 <h1>معارض دي يونق</h1>
 
-  <a href="girls.php?page=pagesgirls" class="back-btn">←العودة</a>
+  <a href="footballplayers.php?page=pagesp" class="back-btn">←العودة</a>
 
 <div class="grid">
 
