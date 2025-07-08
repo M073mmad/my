@@ -16,7 +16,7 @@ if ($page === 'p') {
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>girls</title>
+  <title>players</title>
   <style>
     body {
       background: #f4f4f4;
@@ -66,7 +66,7 @@ if ($page === 'p') {
 <body>
 
 <div class="dashboard">
-  <h1>girls</h1>
+  <h1>players</h1>
   <a href="?page=imgp" class="btn">الصور</a>
   <a href="?page=videosp" class="btn">الفيديوهات</a>
   <a href="?page=pagesp" class="btn">الصفحات</a>
