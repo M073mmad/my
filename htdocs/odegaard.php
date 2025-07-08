@@ -108,7 +108,7 @@ if ($page === '1') {
 </head>
 <body>
 
-<h1>معارض دي يونق</h1>
+<h1>معارض اوديقارد</h1>
 
   <a href="footballplayers.php?page=pagesp" class="back-btn">←العودة</a>
 
@@ -116,12 +116,12 @@ if ($page === '1') {
 
   <a href="?page=2" class="button-tile">
     <img loading="lazy" src="proxyic.php?id=1RVLAWz-jjde0xD6sSw4mmfVRoGlhWjGg" alt="شعار 1">
-    <p>فيديوهات دي يونق</p>
+    <p>فيديوهات اوديقارد</p>
   </a>
 
   <a href="?page=3" class="button-tile">
     <img loading="lazy" src="proxyic.php?id=1u40pQkIJL6f4GHqA4Hcwg7-eYjjxTKl7" alt="شعار 2">
-    <p>صور دي يونق</p>
+    <p>صور اوديقارد</p>
   </a>
 
 </div>
@@ -151,7 +151,7 @@ if ($client->isAccessTokenExpired()) {
 }
 
 $service = new Google_Service_Drive($client);
-$folderId = "1eBLtE2XZpBln6FGAyJE7mu8VZXG0iY7d";
+$folderId = "1eDxTraSH1f1Mtdcix_YVJ74Zzt3cFeT5";
 
 $results = $service->files->listFiles([
     'q' => "'$folderId' in parents and trashed = false",
@@ -178,7 +178,7 @@ foreach ($results->getFiles() as $file) {
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <title>فيديوهات دي يونق</title>
+  <title>فيديوهات اوديقارد</title>
   <style>
     body {
       background: black;
@@ -257,7 +257,7 @@ foreach ($results->getFiles() as $file) {
 </head>
 <body>
 
-  <h2>فيديوهات دي يونق</h2>
+  <h2>فيديوهات اوديقارد</h2>
 
   <a href="?page=1" class="back-btn">←العودة</a>
 
@@ -356,7 +356,7 @@ if ($client->isAccessTokenExpired()) {
 
 $service = new Google_Service_Drive($client);
 
-$folderId = "1e7G2whglpjGNtALRMYJ7bEDsIIuEtWQ3";
+$folderId = "1eCWmJ5UZ2bc5jF7fCWyeQPd-faig9fl0";
 $results = $service->files->listFiles([
     'q' => "'$folderId' in parents and trashed = false",
     'fields' => 'files(id,name,mimeType,thumbnailLink)'
@@ -381,7 +381,7 @@ foreach ($results->getFiles() as $file) {
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <title>صور دي يونق</title>
+  <title>صور اوديقارد</title>
   <style>
     body {
       background: black;
@@ -491,7 +491,7 @@ foreach ($results->getFiles() as $file) {
 </head>
 <body>
 
-  <h2>صور دي يونق</h2>
+  <h2>صور اوديقارد</h2>
 
   <div class="top-center-container">
 
