@@ -186,7 +186,7 @@ if ($page === 'p') {
 <div class="grid">
   
   <a href="gavi.php" class="button-tile">
-    <img loading="lazy" src="proxyic.php?id=1gWPGTpPpznhe8AgAzqk4AGn08eaSfXpc" alt="شعار 1">
+    <img loading="lazy" src="proxyic.php?id=1Eh0IpVCDEandFYpflxmMCC9pKbpExuyw" alt="شعار 1">
     <p>معارض جافي</p>
   </a>
 
