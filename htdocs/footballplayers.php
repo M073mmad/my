@@ -186,42 +186,38 @@ if ($page === 'p') {
 <div class="grid">
   
   <a href="gavi.php" class="button-tile">
-    <img loading="lazy" src="proxyic.php?id=1U-en8MQF5mwsBURef1QljYveFSJm8GZM" alt="شعار 1">
+    <img loading="lazy" src="proxyic.php?id=1gWPGTpPpznhe8AgAzqk4AGn08eaSfXpc" alt="شعار 1">
     <p>معارض جافي</p>
   </a>
 
     <a href="dybala.php" class="button-tile">
-    <img loading="lazy" src="proxyic.php?id=1yITZBqPoJ_pjBsyL8Mn4SM4Oe6OIOCk9" alt="شعار 1">
+    <img loading="lazy" src="proxyic.php?id=1fhxRNhiweLcfUgdioCuo65cb4aBluXlC" alt="شعار 1">
     <p>معارض ديبالا </p>
   </a>
 
     <a href="odegaard.php" class="button-tile">
-    <img loading="lazy" src="proxyic.php?id=1OqIIW9WXCC3H8hRWmn9iIdBauWU5zNcp" alt="شعار 1">
+    <img loading="lazy" src="proxyic.php?id=1gEx2uMzo-WU_L83Co8UM8QbmOlTP642I" alt="شعار 1">
     <p>معارض اوديغارد </p>
   </a>
 
     <a href="lopez.php" class="button-tile">
-    <img loading="lazy" src="proxyic.php?id=1bEwEcOKaJCfxVC3RRpFwPlFSp1fmupXT" alt="شعار 1">
+    <img loading="lazy" src="proxyic.php?id=1erkikHxUDlICzrBzTt2tYitZfgcl0eAL" alt="شعار 1">
     <p>معارض لوبيز </p>
   </a>
 
    <a href="arda.php" class="button-tile">
-    <img loading="lazy" src="proxyic.php?id=1bEwEcOKaJCfxVC3RRpFwPlFSp1fmupXT" alt="شعار 1">
+    <img loading="lazy" src="proxyic.php?id=1fhJCh0fySHzOd9nFvBWeSxlmx0KrUeY9" alt="شعار 1">
     <p>معارض اردا قولير </p>
   </a>
 
        <a href="hector.php" class="button-tile">
-    <img loading="lazy" src="proxyic.php?id=1bEwEcOKaJCfxVC3RRpFwPlFSp1fmupXT" alt="شعار 1">
+    <img loading="lazy" src="proxyic.php?id=1fx8yG5BexEXA7y68p4UXEBD6Lr7aR7Iy" alt="شعار 1">
     <p>معارض هيكتور فورت </p>
   </a>
 
-   <a href="kaka.php" class="button-tile">
-    <img loading="lazy" src="proxyic.php?id=1bEwEcOKaJCfxVC3RRpFwPlFSp1fmupXT" alt="شعار 1">
-    <p>معارض كاكا </p>
-  </a>
 
    <a href="deng.php" class="button-tile">
-    <img loading="lazy" src="proxyic.php?id=1bEwEcOKaJCfxVC3RRpFwPlFSp1fmupXT" alt="شعار 1">
+    <img loading="lazy" src="proxyic.php?id=1f5ltnToq9aIw0lxJpP7Ao_UIdx3JbgKj" alt="شعار 1">
     <p>معارض دي يونغ </p>
   </a>
 
