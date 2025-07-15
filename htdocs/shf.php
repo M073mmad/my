@@ -204,6 +204,13 @@ if ($page === 'shf') {
     <img loading="lazy" src="proxyic.php?id=1ulO3SnbNopsKuVSKPjdSy36vPgZ15QDK" alt="شعار 1">
     <p>❤️معارض ابودقمة❤️</p>
   </a>
+
+<a href="saad.php" class="button-tile">
+    <img loading="lazy" src="proxyic.php?id=1nwJlPOzlnJ84LLfAAI50ebQB9R6CbcPC" alt="شعار 1">
+    <p>❤️معارض ابوسعد</p>
+  </a>
+
+
     
 </div>
 
