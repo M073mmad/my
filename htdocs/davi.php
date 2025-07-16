@@ -154,26 +154,36 @@ if ($client->isAccessTokenExpired()) {
 
 $service = new Google_Service_Drive($client);
 $folderId = "1sSxBjm56oQnRXQbzh3k-mQxBQq32IyNv";
-
-$results = $service->files->listFiles([
-    'q' => "'$folderId' in parents and trashed = false",
-    'fields' => 'files(id,name,mimeType,thumbnailLink)'
-]);
+$optParams = [
+    'q'        => "'$folderId' in parents and trashed = false and mimeType contains 'video/'",
+    'fields'   => 'nextPageToken, files(id,name,mimeType,thumbnailLink)',
+    'pageSize' => 1000,
+];
 
 $videos = [];
+$pageToken = null;
 $allowedExtensions = ['mp4', 'webm', 'ogg'];
-foreach ($results->getFiles() as $file) {
-    if (strpos($file->getMimeType(), 'video/') === 0) {
+
+do {
+    if ($pageToken) {
+        $optParams['pageToken'] = $pageToken;
+    }
+
+    $results = $service->files->listFiles($optParams);
+
+    foreach ($results->getFiles() as $file) {
         $ext = strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
         if (in_array($ext, $allowedExtensions)) {
             $videos[] = [
-                'id' => $file->getId(),
-                'name' => $file->getName(),
-                'thumb' => $file->getThumbnailLink()
+                'id'    => $file->getId(),
+                'name'  => $file->getName(),
+                'thumb' => $file->getThumbnailLink(),
             ];
         }
     }
-}
+
+    $pageToken = $results->getNextPageToken();
+} while ($pageToken);
 ?>
 
 <!DOCTYPE html>
@@ -359,24 +369,35 @@ if ($client->isAccessTokenExpired()) {
 $service = new Google_Service_Drive($client);
 
 $folderId = "1Vk7l7C5YHw9qFrQwCV4-O4e8jIBvGgoa";
-$results = $service->files->listFiles([
-    'q' => "'$folderId' in parents and trashed = false",
-    'fields' => 'files(id,name,mimeType,thumbnailLink)'
-]);
+$optParams = [
+    'q'        => "'$folderId' in parents and trashed = false and mimeType contains 'image/'",
+    'fields'   => 'nextPageToken, files(id,name,mimeType,thumbnailLink)',
+    'pageSize' => 1000,
+];
 
 $images = [];
+$pageToken = null;
 $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'];
-foreach ($results->getFiles() as $file) {
-    if (strpos($file->getMimeType(), 'image/') === 0) {
+
+do {
+    if ($pageToken) {
+        $optParams['pageToken'] = $pageToken;
+    }
+
+    $results = $service->files->listFiles($optParams);
+
+    foreach ($results->getFiles() as $file) {
         $ext = strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
         if (in_array($ext, $allowedExtensions)) {
             $images[] = [
                 'thumb' => $file->getThumbnailLink(),
-                'id' => $file->getId(),
+                'id'    => $file->getId(),
             ];
         }
     }
-}
+
+    $pageToken = $results->getNextPageToken();
+} while ($pageToken);
 ?>
 
 <!DOCTYPE html>
