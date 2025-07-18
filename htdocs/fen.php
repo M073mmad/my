@@ -366,7 +366,7 @@ if ($client->isAccessTokenExpired()) {
 
 $service = new Google_Service_Drive($client);
 
-$folderId = 1wobp1OKs2B9q0VOHgsA_z_RsmBRtc35Q";
+$folderId = "1wobp1OKs2B9q0VOHgsA_z_RsmBRtc35Q";
 $optParams = [
     'q'        => "'$folderId' in parents and trashed = false and mimeType contains 'image/'",
     'fields'   => 'nextPageToken, files(id,name,mimeType,thumbnailLink)',
