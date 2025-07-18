@@ -210,6 +210,11 @@ if ($page === 'shf') {
     <p>❤️معارض ابوسعد</p>
   </a>
 
+<a href="fen.php" class="button-tile">
+    <img loading="lazy" src="proxyic.php?id=1-IyC17mG-cQRe8gsYIcReWsIAK5F8Izi" alt="شعار 1">
+    <p>👄معارض فين🫦</p>
+  </a>
+
 
     
 </div>
